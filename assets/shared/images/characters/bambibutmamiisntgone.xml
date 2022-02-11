@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="bambibutmamiisntgone.png">
+<SubTexture name="Idle0000" x="0" y="0" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Idle0001" x="924" y="0" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Idle0002" x="1848" y="0" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Idle0003" x="2772" y="0" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Idle0004" x="3696" y="0" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Idle0005" x="0" y="924" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Mami Left0000" x="924" y="924" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Mami Left0001" x="1848" y="924" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Mami Left0002" x="2772" y="924" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Mami Right0000" x="3696" y="924" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Mami Right0001" x="0" y="1848" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Mami Right0002" x="924" y="1848" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Mami Up0000" x="1848" y="1848" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Mami Up0001" x="2772" y="1848" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Mami Up0002" x="3696" y="1848" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Mami Down0000" x="0" y="2772" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Mami Down0001" x="924" y="2772" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Mami Down0002" x="1848" y="2772" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Bambi Left0000" x="2772" y="2772" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Bambi Left0001" x="3696" y="2772" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Bambi Left0002" x="0" y="3696" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Bambi Right0000" x="924" y="3696" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Bambi Right0001" x="1848" y="3696" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Bambi Right0002" x="2772" y="3696" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Bambi Up0000" x="3696" y="3696" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Bambi Up0001" x="0" y="4620" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Bambi Up0002" x="924" y="4620" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Bambi Down0000" x="1848" y="4620" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Bambi Down0001" x="2772" y="4620" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+<SubTexture name="Bambi Down0002" x="3696" y="4620" width="924" height="924" frameX="0" frameY="0" frameWidth="924" frameHeight="924" />
+</TextureAtlas>

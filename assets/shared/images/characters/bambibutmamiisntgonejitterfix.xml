@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="bambibutmamiisntgonejitterfix.png">
+	<!-- Created with Adobe Animate version 20.0.3.25487 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="left0000" x="0" y="0" width="647" height="746" frameX="0" frameY="0" frameWidth="647" frameHeight="747"/>
+	<SubTexture name="left0001" x="647" y="0" width="627" height="747" frameX="-20" frameY="0" frameWidth="647" frameHeight="747"/>
+	<SubTexture name="right0000" x="1274" y="0" width="584" height="747" frameX="-63" frameY="0" frameWidth="647" frameHeight="747"/>
+	<SubTexture name="right0001" x="0" y="747" width="592" height="747" frameX="-55" frameY="0" frameWidth="647" frameHeight="747"/>
+</TextureAtlas>

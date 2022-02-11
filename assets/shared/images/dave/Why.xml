@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Why.png">
+	<!-- Created with Adobe Animate version 20.0.3.25487 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="What??????0000" x="0" y="0" width="421" height="570" frameX="0" frameY="-16" frameWidth="421" frameHeight="586"/>
+	<SubTexture name="What??????0001" x="421" y="0" width="420" height="570" frameX="-1" frameY="-16" frameWidth="421" frameHeight="586"/>
+	<SubTexture name="What??????0002" x="841" y="0" width="419" height="571" frameX="-2" frameY="-15" frameWidth="421" frameHeight="586"/>
+	<SubTexture name="What??????0003" x="1260" y="0" width="415" height="579" frameX="-5" frameY="-7" frameWidth="421" frameHeight="586"/>
+	<SubTexture name="What??????0004" x="1260" y="0" width="415" height="579" frameX="-5" frameY="-7" frameWidth="421" frameHeight="586"/>
+	<SubTexture name="What??????0005" x="0" y="579" width="411" height="586" frameX="-8" frameY="0" frameWidth="421" frameHeight="586"/>
+	<SubTexture name="What??????0006" x="0" y="579" width="411" height="586" frameX="-8" frameY="0" frameWidth="421" frameHeight="586"/>
+</TextureAtlas>
