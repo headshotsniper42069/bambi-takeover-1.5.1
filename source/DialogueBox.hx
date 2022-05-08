@@ -661,7 +661,6 @@ class DialogueBox extends FlxSpriteGroup
 				{
 					portraitToukaPost.visible = true;
 				}
-				
 
 			case 'bambi':
 				nameDialogue.text = 'Bambi';

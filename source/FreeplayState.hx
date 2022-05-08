@@ -240,8 +240,8 @@ class FreeplayState extends MusicBeatState
 		
 		if (FlxG.save.data.progressStoryClearHard == false)
 			{
-			freePlaylock.x = grpSongs.members[4].x - 420;
-			freePlaylock.y = grpSongs.members[4].y - 90;
+			freePlaylock.x = grpSongs.members[5].x - 420;
+			freePlaylock.y = grpSongs.members[5].y - 90;
 			freePlaylock.alpha = 1.0;
 			}
 		else
@@ -249,8 +249,8 @@ class FreeplayState extends MusicBeatState
 
 		if (FlxG.save.data.progressStoryClearTetris == false)
 			{
-			freePlaylock1.x = grpSongs.members[5].x - 420;
-			freePlaylock1.y = grpSongs.members[5].y - 90;
+			freePlaylock1.x = grpSongs.members[6].x - 420;
+			freePlaylock1.y = grpSongs.members[6].y - 90;
 			freePlaylock1.alpha = 1.0;
 			}
 		else
@@ -267,7 +267,7 @@ class FreeplayState extends MusicBeatState
 				FlxTween.completeTweensOf(playingSongText);
 				FlxTween.color(playingSongText, .5, FlxColor.GRAY, FlxColor.WHITE, {ease: FlxEase.quadOut});
 
-				if (curSelected <= 2 || curSelected >= 6)
+				if (curSelected <= 4 || curSelected >= 7)
 					{
 						if (FlxG.save.data.copyrightedMusic && curSelected == 0)
 							{
@@ -278,7 +278,7 @@ class FreeplayState extends MusicBeatState
 								FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
 							}
 					}
-				else if (curSelected == 3)
+				else if (curSelected == 3 || curSelected == 4)
 				{
 					if (FlxG.save.data.copyrightedMusic && curSelected == 0)
 						{
@@ -289,7 +289,7 @@ class FreeplayState extends MusicBeatState
 							FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
 						}
 				}
-				else if (curSelected == 4 || FlxG.save.data.progressStoryClearHard)
+				else if (curSelected == 5 || FlxG.save.data.progressStoryClearHard)
 					{
 						if (FlxG.save.data.copyrightedMusic && curSelected == 0)
 							{
@@ -300,7 +300,7 @@ class FreeplayState extends MusicBeatState
 								FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
 							}
 					}
-				else if (curSelected == 5 || FlxG.save.data.progressStoryClearTetris)
+				else if (curSelected == 6 || FlxG.save.data.progressStoryClearTetris)
 					{
 						if (FlxG.save.data.copyrightedMusic && curSelected == 0)
 							{
@@ -365,7 +365,7 @@ class FreeplayState extends MusicBeatState
 
 			if (accepted)
 			{
-				if (curSelected == 4 && FlxG.save.data.progressStoryClearHard)
+				if (curSelected == 5 && FlxG.save.data.progressStoryClearHard)
 					{
 					FlxG.sound.music.stop();
 					FlxG.sound.play(Paths.sound('confirmMenu'));
@@ -386,7 +386,7 @@ class FreeplayState extends MusicBeatState
 							LoadingState.loadAndSwitchState(new PlayState());
 						});
 					}
-				else if (curSelected == 5 && FlxG.save.data.progressStoryClearTetris)
+				else if (curSelected == 6 && FlxG.save.data.progressStoryClearTetris)
 					{
 						FlxG.sound.music.stop();
 						FlxG.sound.play(Paths.sound('confirmMenu'));
@@ -407,7 +407,7 @@ class FreeplayState extends MusicBeatState
 								LoadingState.loadAndSwitchState(new PlayState());
 							});
 					}
-				else if (curSelected <= 2 || curSelected >= 6)
+				else if (curSelected <= 2 || curSelected >= 7)
 					{
 						FlxG.sound.music.stop();
 						FlxG.sound.play(Paths.sound('confirmMenu'));
@@ -416,7 +416,7 @@ class FreeplayState extends MusicBeatState
 						var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
 	
 						trace(poop);
-	
+
 						PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
 						PlayState.isStoryMode = true;
 						PlayState.storyDifficulty = curDifficulty;
@@ -442,7 +442,7 @@ class FreeplayState extends MusicBeatState
 				else if (curSelected == 3)
 					{
 						FlxG.sound.music.stop();
-						FlxG.sound.play(Paths.sound('confirmMenubambi'));
+						FlxG.sound.play(Paths.sound('confirmMenubambi')); // distant holy shit sound effect
 						selectedSong = true;
 						changeSelection(0); //I KNOW I'M SO FUCKING STUPID
 						var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
@@ -461,6 +461,28 @@ class FreeplayState extends MusicBeatState
 								});
 						}
 					}
+				else if (curSelected == 4)
+				{
+					FlxG.sound.music.stop();
+					FlxG.sound.play(Paths.sound('confirmMenu'));
+					selectedSong = true;
+					changeSelection(0); //I KNOW I'M SO FUCKING STUPID
+					var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
+	
+					trace(poop);
+	
+					PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
+					PlayState.isStoryMode = true;
+					PlayState.storyDifficulty = curDifficulty;
+					PlayState.storyWeek = songs[curSelected].week;
+					{
+						new FlxTimer().start(1, function(tmr:FlxTimer)
+							{
+								trace('CUR WEEK' + PlayState.storyWeek);
+								LoadingState.loadAndSwitchState(new PlayState());
+							});
+					}
+				}
 			}
 		}
 	}
@@ -469,7 +491,7 @@ class FreeplayState extends MusicBeatState
 	{
 		curDifficulty += change;
 
-		if (curSelected >= 4)
+		if (curSelected >= 5)
 			{
 			if (curDifficulty < 2)
 				curDifficulty = 3;
@@ -505,8 +527,16 @@ class FreeplayState extends MusicBeatState
 				diffText.text = "HARD";
 				diffText.color = FlxColor.RED;
 			case 3:
-				diffText.text = "HOLY";
-				diffText.color = 0xFFFEE897;
+				if (curSelected == 3)
+				{
+					diffText.text = "UNNERFED"; // the
+					diffText.color = FlxColor.CYAN; // light blue amirite
+				}
+				else
+				{
+					diffText.text = "HOLY";
+					diffText.color = 0xFFFEE897;
+				}
 		}
 	}
 
@@ -527,7 +557,7 @@ class FreeplayState extends MusicBeatState
 
 		curSelected += change;
 
-		if (curSelected >= 4 && curDifficulty <= 2 && curSelected <= 5)
+		if (curSelected >= 5 && curDifficulty <= 2 && curSelected <= 6)
 			{
 			if (curDifficulty < 2)
 				curDifficulty = 3;
@@ -547,8 +577,16 @@ class FreeplayState extends MusicBeatState
 				diffText.text = "HARD";
 				diffText.color = FlxColor.RED;
 			case 3:
-				diffText.text = "HOLY";
-				diffText.color = 0xFFFEE897;
+				if (curSelected == 3)
+				{
+					diffText.text = "UNNERFED"; // the
+					diffText.color = FlxColor.CYAN;
+				}
+				else
+				{
+					diffText.text = "HOLY";
+					diffText.color = 0xFFFEE897;
+				}
 		}
 
 		if (curSelected < 0)
@@ -578,21 +616,24 @@ class FreeplayState extends MusicBeatState
 						freeChar.animation.play('mami');
 						freeChar.y = -50;
 					case 4:
+						freeChar.animation.play('mami');
+						freeChar.y = -8790235487954320; // lmao
+					case 5:
 						freeChar.animation.play('tetris_mami');
 						freeChar.y -= 165;
-					case 5:
+					case 6:
 						freeChar.animation.play('holy_mami');
 						freeChar.y = -50;
-					case 6:
+				/*	case 7:
 						freeChar.animation.play('mami');
-						freeChar.y = -50;
+						freeChar.y = -50; */ // unused case
 				}
-				if (curSelected == 4 && !FlxG.save.data.progressStoryClearHard)
+				if (curSelected == 5 && !FlxG.save.data.progressStoryClearHard)
 					{
 						freeChar.animation.play('mami');
 						freeChar.y = -50;
 					}
-				else if (curSelected == 5 && !FlxG.save.data.progressStoryClearTetris)
+				else if (curSelected == 6 && !FlxG.save.data.progressStoryClearTetris)
 					{
 						freeChar.animation.play('mami');
 						freeChar.y = -50;
@@ -601,7 +642,7 @@ class FreeplayState extends MusicBeatState
 
 		if (songPlaying && !selectedSong)
 			{
-				if (curSelected <= 2 || curSelected >= 6)
+				if (curSelected <= 4 || curSelected >= 7)
 					{
 						if (FlxG.save.data.copyrightedMusic && curSelected == 0)
 							{
@@ -612,7 +653,7 @@ class FreeplayState extends MusicBeatState
 								FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
 							}
 					}
-				else if (curSelected == 3)
+				else if (curSelected == 3 || curSelected == 4)
 					{
 						if (FlxG.save.data.copyrightedMusic && curSelected == 0)
 							{
@@ -623,7 +664,7 @@ class FreeplayState extends MusicBeatState
 								FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
 							}
 					}
-				else if (curSelected == 4 && FlxG.save.data.progressStoryClearHard)
+				else if (curSelected == 5 && FlxG.save.data.progressStoryClearHard)
 					{
 						if (FlxG.save.data.copyrightedMusic && curSelected == 0)
 							{
@@ -634,7 +675,7 @@ class FreeplayState extends MusicBeatState
 								FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
 							}
 					}
-				else if (curSelected == 5 && FlxG.save.data.progressStoryClearTetris)
+				else if (curSelected == 6 && FlxG.save.data.progressStoryClearTetris)
 					{
 						if (FlxG.save.data.copyrightedMusic && curSelected == 0)
 							{
@@ -673,7 +714,7 @@ class FreeplayState extends MusicBeatState
 			}
 
 		iconArray[curSelected].alpha = 1;
-		iconArray[4].setGraphicSize(Std.int(iconArray[3].width * 0.74));
+		iconArray[5].setGraphicSize(Std.int(iconArray[3].width * 0.74));
 
 		for (item in grpSongs.members)
 		{
@@ -707,24 +748,24 @@ class FreeplayState extends MusicBeatState
 				{
 					if (selectedSong) // this code got so messy after adding locked freeplay stuff
 						{
-							FlxTween.tween(item, {x: 1000, "alpha": 0}, 1, {ease: FlxEase.quadIn});
+							FlxTween.tween(item, {x: 3000, "alpha": 0}, 1, {ease: FlxEase.quintIn});
 							if (FlxG.save.data.progressStoryClearHard == false) //hard story not cleared, when selecting a unlocked song they will fade away and not spoil the secret song name
 								{
-								FlxTween.tween(freePlaylock, {"alpha": 0}, 1, {ease: FlxEase.quadIn});
-								FlxTween.tween(freePlaylock1, {"alpha": 0}, 1, {ease: FlxEase.quadIn});
-								grpSongs.members[4].alpha = 0;
+								FlxTween.tween(freePlaylock, {"alpha": 0}, 1, {ease: FlxEase.quintIn});
+								FlxTween.tween(freePlaylock1, {"alpha": 0}, 1, {ease: FlxEase.quintIn});
 								grpSongs.members[5].alpha = 0;
+								grpSongs.members[6].alpha = 0;
 								}
 
 							for (i in 0...iconArray.length)
 								{
-									FlxTween.tween(iconArray[i], {x: 1200, "alpha": 0}, 1, {ease: FlxEase.quadIn});
+									FlxTween.tween(iconArray[i], {x: 3200, "alpha": 0}, 1, {ease: FlxEase.quintIn});
 									FlxTween.cancelTweensOf(iconArray[curSelected]);
 
 									if (FlxG.save.data.progressStoryClearHard == false) //same exact thing but with icons
 										{
-										iconArray[4].alpha = 0;
 										iconArray[5].alpha = 0;
+										iconArray[6].alpha = 0;
 										}
 								}
 						}

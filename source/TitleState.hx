@@ -51,6 +51,7 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
+		FlxG.save.data.cheaterew = false;
 
 		FlxG.autoPause = true;
 		#if polymod
@@ -265,6 +266,22 @@ class TitleState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+	/*	if (FlxG.save.data.cheaterew)
+		{
+			var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
+			diamond.persist = true;
+			diamond.destroyOnNoUse = false;
+			FlxTransitionableState.defaultTransIn = new TransitionData(FADE, FlxColor.BLACK, 1, new FlxPoint(0, -1), {asset: diamond, width: 32, height: 32},
+			new FlxRect(-200, -200, FlxG.width * 1.4, FlxG.height * 1.4));
+			FlxTransitionableState.defaultTransOut = new TransitionData(FADE, FlxColor.BLACK, 0.7, new FlxPoint(0, 1),
+			{asset: diamond, width: 32, height: 32}, new FlxRect(-200, -200, FlxG.width * 1.4, FlxG.height * 1.4));
+
+			transIn = FlxTransitionableState.defaultTransIn;
+			transOut = FlxTransitionableState.defaultTransOut;
+			BamberVariables.alreadydidthefix = false; // oh my god
+			PlayState.SONG = Song.loadFromJson('splitathon', 'splitathon');
+			LoadingState.loadAndSwitchState(new PlayState());
+		} */
 		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, 0.95);
 
 		if (FlxG.sound.music != null)
@@ -349,7 +366,10 @@ class TitleState extends MusicBeatState
 						//trace('outdated lmao! ' + data.trim() + ' != ' + MainMenuState.kadeEngineVer);
 						OutdatedSubState.needVer = data;
 						if (FlxG.save.data.spoilerStartScreen)
+						{
+							FlxTransitionableState.skipNextTransIn = true;
 							FlxG.switchState(new SpoilerState());
+						}
 						else
 							FlxG.switchState(new MainMenuState());
 					}

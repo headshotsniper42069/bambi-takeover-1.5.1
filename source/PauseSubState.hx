@@ -46,6 +46,8 @@ class PauseSubState extends MusicBeatSubstate
 		var levelInfo:FlxText = new FlxText(20, 15, 0, "", 32);
 		if (PlayState.SONG.song.toLowerCase() == 'cheating')
 			levelInfo.text += 'Screw you cheater!';
+		else if (PlayState.SONG.song.toLowerCase() == 'salvatia')
+			levelInfo.text += 'Salvation';
 		else if (PlayState.SONG.song.toLowerCase() == 'salvation' && BamberVariables.isbambertake && !BamberVariables.disruptionmoment)
 			levelInfo.text += 'Salvation...?';
 		else if (PlayState.SONG.song.toLowerCase() == 'salvation' && BamberVariables.isbambertake && BamberVariables.disruptionmoment)
@@ -58,16 +60,22 @@ class PauseSubState extends MusicBeatSubstate
 					levelInfo.text += 'Marcello_TIMEnice30 Takeover';
 				case 4:
 					levelInfo.text += 'Salvatiamong us';
-				case 5:
-					levelInfo.text += 'wheres the salvation fl studio project file';
+				case 5 | 12 | 24:
+			//		levelInfo.text += 'wheres the salvation fl studio project file'; // magbros please
+				// HOLY SHIT HE ACTUALLY DID IT WHATTT
+					levelInfo.text += 'funne takeover';
 				case 6:
 					levelInfo.text += 'Applecore';
 				case 7:
 					levelInfo.text += 'Cheating 24';
 				case 9:
-					levelInfo.text += 'Mami Stole Corn';
+					levelInfo.text += 'bro wtf';
 				case 10:
 					levelInfo.text += 'Splitathon 2';
+				case 11:
+					levelInfo.text += 'This Isnt Supposed To Happen';
+				case 13:
+					levelInfo.text += 'Disruption';
 				default:
 					levelInfo.text += 'Bambi Takeover';
 			}

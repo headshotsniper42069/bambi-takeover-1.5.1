@@ -231,6 +231,23 @@ class Character extends FlxSprite
 				animation.addByPrefix('singLEFT-alt', 'Mami Left', 15, false);
 	
 				playAnim('idle');
+			case 'edward': // fuck
+				tex = Paths.getSparrowAtlas('characters/Fuck','shared');
+				frames = tex;
+				animation.addByPrefix('well', 'EduardoWell', 24, false);
+				animation.addByPrefix('idle', 'EduardoIdle', 24, false);
+				animation.addByPrefix('singLEFT', 'EduardoLeft', 24, false);
+				animation.addByPrefix('singUP', 'EduardoUp', 24, false);
+				animation.addByPrefix('singDOWN', 'EduardoDown', 24, false);
+				animation.addByPrefix('singRIGHT', 'EduardoRight', 24, false);
+				addOffset('idle', 0, 0); //24
+				addOffset('well', -3, 1); //24
+				addOffset("singUP", -16, 25); //-5
+				addOffset("singRIGHT", -4, -6); //-35
+				addOffset("singLEFT", 4, -6); //-35
+				addOffset("singDOWN", 11, -20); //-65
+
+				playAnim('idle');
 
 			case 'bamijitterfix':
 				tex = Paths.getSparrowAtlas('characters/bambibutmamiisntgonejitterfix','shared');
@@ -244,7 +261,7 @@ class Character extends FlxSprite
 				playAnim('idle');
 
 			case 'mami-holy':
-				tex = Paths.getSparrowAtlas('characters/Holy Mami','shared');
+				tex = Paths.getSparrowAtlas('characters/Dave appears as a light skinned man with a blue shirt, blue pants, and short brown hair','shared');
 				frames = tex;
 				animation.addByPrefix('idle', 'IDLE', 24);
 				animation.addByPrefix('singUP', 'UP', 24);
@@ -278,9 +295,9 @@ class Character extends FlxSprite
 				playAnim('idle');
 	
 			case 'mami-holy-postsnap':
-				tex = Paths.getSparrowAtlas('characters/Holy Mami','shared');
+				tex = Paths.getSparrowAtlas('characters/Dave appears as a light skinned man with a blue shirt, blue pants, and short brown hair','shared');
 				frames = tex;
-				animation.addByPrefix('idle', 'altIDLE', 24);
+				animation.addByPrefix('idle', 'altIDLE', 24, false);
 				animation.addByPrefix('singUP', 'altUP', 24);
 				animation.addByPrefix('singRIGHT', 'altUP', 24);
 				animation.addByPrefix('singDOWN', 'altUP', 24);
@@ -326,28 +343,75 @@ class Character extends FlxSprite
 				addOffset("singDOWN", -20, -10);
 		
 				playAnim('idle');
-			case 'dave':
-				// DAVE SHITE ANIMATION LOADING CODE
-				tex = Paths.getSparrowAtlas('dave/dave_sheet');
-				frames = tex;
-				animation.addByPrefix('idle', 'Dave idle dance', 24);
-				animation.addByPrefix('singUP', 'Dave Sing Note UP', 24);
-				animation.addByPrefix('singRIGHT', 'Dave Sing Note RIGHT', 24);
-				animation.addByPrefix('singDOWN', 'Dave Sing Note DOWN', 24);
-				animation.addByPrefix('singLEFT', 'Dave Sing Note LEFT', 24);
+			case 'bambi-splitathon1.0':
+				frames = Paths.getSparrowAtlas('characters/Bambi Splitathon 1.0');
+				animation.addByPrefix('idle', 'i', 24, false);
+				animation.addByPrefix('singDOWN', 'd', 24, false);
+				animation.addByPrefix('singUP', 'u', 24, false);
+				animation.addByPrefix('singLEFT', 'l', 24, false);
+				animation.addByPrefix('singRIGHT', 'r', 24, false);
+							
+				addOffset('idle');
+				addOffset("singUP", 0, 0);
+				addOffset("singRIGHT", 0, 0);
+				addOffset("singLEFT", 0, 0);
+				addOffset("singDOWN", 0, 0);
+		
+				playAnim('idle');
+			case 'dave-splitathon':
+				frames = Paths.getSparrowAtlas('characters/Splitathon_Dave');
+				animation.addByPrefix('idle', 'SplitIdle', 24, false);
+				animation.addByPrefix('singDOWN', 'SplitDown', 24, false);
+				animation.addByPrefix('singUP', 'SplitUp', 24, false);
+				animation.addByPrefix('singLEFT', 'SplitLeft', 24, false);
+				animation.addByPrefix('singRIGHT', 'SplitRight', 24, false);
+				animation.addByPrefix('scared', 'Nervous', 24, true);
+				animation.addByPrefix('what', 'Mad', 24, true);
+				animation.addByPrefix('happy', 'Happy', 24, true);
 
 				addOffset('idle');
-				addOffset("singUP", 0, -5);
-				addOffset("singRIGHT", 0, 0);
-				addOffset("singLEFT", -5, 0);
-				addOffset("singDOWN", -1, -3);
-
-				setGraphicSize(Std.int(width * 1.1));
-
-				updateHitbox();
+				addOffset("singUP", -12, 20);
+				addOffset("singRIGHT", -40, -13);
+				addOffset("singLEFT", 32, 8);
+				addOffset("singDOWN", 3, -21);
+				addOffset("scared", -15, 11);
+				addOffset("what", -3, 1);
+				addOffset("happy", -3, 1);
 
 				playAnim('idle');
 
+			case 'mamigodofphones':
+				frames = Paths.getSparrowAtlas('characters/Mami God Of Phones');
+				animation.addByPrefix('idle', 'Idle', 15, false);
+				animation.addByPrefix('singDOWN', 'Down', 15, false);
+				animation.addByPrefix('singUP', 'Up', 15, false);
+				animation.addByPrefix('singLEFT', 'Left', 15, false);
+				animation.addByPrefix('singRIGHT', 'Right', 15, false);
+				animation.addByPrefix('lookleft', 'Looking Left', 15, true);
+
+				playAnim('idle');
+
+			case '3dmami':
+				frames = Paths.getSparrowAtlas('characters/oh no oh god');
+				animation.addByPrefix('idle', 'idle', 15, true);
+				animation.addByPrefix('singDOWN', 'down', 15, false);
+				animation.addByPrefix('singUP', 'up', 15, false);
+				animation.addByPrefix('singLEFT', 'left', 15, false);
+				animation.addByPrefix('singRIGHT', 'right', 15, false);
+
+				playAnim('idle');
+
+			case 'bambijoke':
+				frames = Paths.getSparrowAtlas('characters/bambi joke','shared');
+				animation.addByIndices('idle', 'MARCELLO HEY!!', [24], "", 24, false);
+				animation.addByPrefix('singUP', 'MARCELLO HEY!!', 24, false);
+				animation.addByPrefix('singLEFT', 'MARCELLO HEY!!', 24, false);
+				animation.addByPrefix('singRIGHT', 'MARCELLO HEY!!', 24, false);
+				animation.addByPrefix('singDOWN', 'MARCELLO HEY!!', 24, false);
+
+				flipX = true;
+
+				playAnim('idle');
 		}
 
 		dance();
@@ -390,7 +454,10 @@ class Character extends FlxSprite
 				dadVar = 6.1;
 			if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001)
 			{
-				dance();
+				if (curCharacter != 'mamigodofphones')
+					dance();
+				else if (PlayState.mamiidlefix && curCharacter == 'mamigodofphones')
+					dance(); // IM SOS SORRY FOR DOING THIS IDK HOW TO LJKSDFJKLFSDKJLDFSKLJFDS
 				holdTimer = 0;
 			}
 		}
