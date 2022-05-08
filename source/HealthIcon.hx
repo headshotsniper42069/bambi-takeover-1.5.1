@@ -34,6 +34,7 @@ class HealthIcon extends FlxSprite
 				animation.add('mami', [9, 10, 11], 0, false, isPlayer);
 				animation.add('mami-holy', [12, 13, 14], 0, false, isPlayer);
 				animation.add('bambi', [18, 19], 0, false, isPlayer);
+				animation.add('dave', [18, 19], 0, false, isPlayer);
 				animation.add('bambi-splitathon', [18, 19], 0, false, isPlayer); // when the
 				animation.add('dad', [18, 19, 20], 0, false, isPlayer);
 				animation.add('mami-mamigation', [21, 22, 23], 0, false, isPlayer);

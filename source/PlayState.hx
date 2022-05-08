@@ -3,6 +3,7 @@ package;
 import openfl.geom.Matrix;
 import openfl.display.BitmapData;
 import openfl.utils.AssetType;
+import Shaders.PulseEffect; // the dave and bambi
 import lime.graphics.Image;
 import flixel.graphics.FlxGraphic;
 import openfl.utils.AssetManifest;
@@ -86,10 +87,17 @@ class PlayState extends MusicBeatState
 	public static var songPosBG:FlxSprite;
 	public static var songPosBar:FlxBar;
 
+	public static var mamiidlefix:Bool = true;
+
 	public var bambipart:Bool = false;
 	public var etesech:Bool = false;
 	public var etesetch:Bool = false;
 	public var bambidrainthing:Bool = false;
+	public var ascension:Bool = false;
+	public var bambisplit:Bool = false;
+	public var spamming:Bool = false;
+	public var ohmygee:Bool = false;
+	public var isedward:Bool = false;
 
 	public static var rep:Replay;
 	public static var loadRep:Bool = false;
@@ -98,15 +106,22 @@ class PlayState extends MusicBeatState
 
 	var halloweenLevel:Bool = false;
 
-	public var elapsedtime:Float = 0;
+	public var elapsedtime:Float = 0; // leftover from vs mami splitathon port
+
+	public var phonehit:Bool = false;
 
 	public static var isDisco:Bool = false;
 
-	private var funnybambi:FlxText;
+	public var curbg:FlxSprite;
+	
+	public var fuck:Int = 1280;
+	public var swagCounter:Int = 0; // god of phones moment
+
 	public var screenshakefix:Bool = false;
 
 	var songLength:Float = 0;
 	var kadeEngineWatermark:FlxText;
+	var funnyWatermark:FlxText;
 	var creditsthing:FlxText;
 	var creditschance:Int = 0;
 	
@@ -121,7 +136,13 @@ class PlayState extends MusicBeatState
 	private var vocals:FlxSound;
 	private var lowhpmusic:FlxSound;
 
+	public var epicintro:Bool = false;
+
+	public var mamiphonesin:Bool = false;
+	private var cube:FlxSprite;
+	private var bambiconfused:FlxSprite;
 	private var dad:Character;
+	private var mamiphones:Character;
 	private var gf:Character;
 	private var boyfriend:Boyfriend;
 
@@ -130,6 +151,7 @@ class PlayState extends MusicBeatState
 
 	private var strumLine:FlxSprite;
 	private var curSection:Int = 0;
+	private var timerended:Bool = true;
 
 	private var camFollow:FlxObject;
 
@@ -520,7 +542,6 @@ class PlayState extends MusicBeatState
 		BamberVariables.alreadycompletedcornholyshit = false; 
 		BamberVariables.isjitterpart = false;
 		BamberVariables.awesomepart = false;
-		BamberVariables.thatpart = false;
 		BamberVariables.didbambijoin = false;
 		BamberVariables.isbambertake = false;
 		BamberVariables.disruptionmoment = false;
@@ -546,7 +567,10 @@ class PlayState extends MusicBeatState
 			case 2:
 				storyDifficultyText = "Hard";
 			case 3:
-				storyDifficultyText = "Holy";
+				if (SONG.song.toLowerCase() == 'cornholy')
+					storyDifficultyText = "Unnerfed";
+				else
+					storyDifficultyText = "Holy";
 		}
 
 		iconRPC = SONG.player2;
@@ -659,6 +683,60 @@ class PlayState extends MusicBeatState
 
 		switch(SONG.song.toLowerCase())
 		{
+			case 'god of phones': // yeah
+			{
+				defaultCamZoom = 0.45;
+				curStage = 'cheaterthing';
+				var bg:FlxSprite = new FlxSprite(-700, -50).loadGraphic(Paths.image('dave/cheater'));
+				bg.setGraphicSize(Std.int(bg.width * 3.2));
+				bg.antialiasing = true;
+				bg.active = false;
+				add(bg);
+				camHUD.alpha = 0.0;
+				camGame.alpha = 0.0;
+				swagCounter = 4;
+				cube = new FlxSprite(-200, 755).loadGraphic(Paths.image('dave/cube2'));
+				cube.antialiasing = false;
+				cube.active = false;
+				add(cube);
+				var cubebf:FlxSprite = new FlxSprite(1475, 805).loadGraphic(Paths.image('dave/cube3'));
+				cubebf.setGraphicSize(Std.int(cubebf.width * 1.3));
+				cubebf.angle = 1;
+				cubebf.antialiasing = false;
+				cubebf.active = false;
+				add(cubebf);
+				var cubegf:FlxSprite = new FlxSprite(250, 680).loadGraphic(Paths.image('dave/cube'));
+				cubegf.antialiasing = false;
+				cubegf.active = false;
+				cubegf.scrollFactor.set(0.95, 0.95);
+				add(cubegf);
+				var testshader:Shaders.GlitchEffect = new Shaders.GlitchEffect();
+				testshader.waveAmplitude = 0.1;
+				testshader.waveFrequency = 5;
+				testshader.waveSpeed = 2;
+				bg.shader = testshader.shader;
+				curbg = bg;
+				curbg.active = true;
+			}
+			case '81.281.1.192' | 'splitathon': // yeah
+			{
+				defaultCamZoom = 0.5;
+				curStage = 'screwyou';
+				var bg:FlxSprite = new FlxSprite(-700, -50).loadGraphic(Paths.image('dave/cheater'));
+				bg.setGraphicSize(Std.int(bg.width * 6.2));
+				bg.antialiasing = true;
+				bg.active = false;
+				add(bg);
+				camGame.alpha = 0.0;
+				swagCounter = 4;
+				var testshader:Shaders.GlitchEffect = new Shaders.GlitchEffect();
+				testshader.waveAmplitude = 0.1;
+				testshader.waveFrequency = 5;
+				testshader.waveSpeed = 2;
+				bg.shader = testshader.shader;
+				curbg = bg;
+				curbg.active = true;
+			}
 			case 'connect' | 'reminisce' | 'konnect' | 'cornholy':
 				{
 						defaultCamZoom = 0.7;
@@ -886,7 +964,7 @@ class PlayState extends MusicBeatState
 					otherBGStuff.antialiasing = true;
 					otherBGStuff.scrollFactor.set(0.9, 0.9);
 					otherBGStuff.active = false;
-					add(otherBGStuff);				
+					add(otherBGStuff);			
 
 					holyHomura = new FlxSprite(-360, 350);
 					holyHomura.frames = Paths.getSparrowAtlas('mami/BG/HOLY/HOLY_women', 'shared');
@@ -1013,14 +1091,28 @@ class PlayState extends MusicBeatState
 				}
 			case 'dad':
 				camPos.x += 400;
+			case 'dave':
+				camPos.y += 700;
+			case 'daveandmami':
+				dad.y += 100;
+				dad.x -= 300;
+				camPos.x += 100;
 			case 'mami':
 				dad.x -= 75;
 			case 'bami':
 				dad.x -= 260;
 				dad.y -= 100;
 			case 'bambi-splitathon':
-				dad.x += 100;
-				dad.y += 450;
+				if (SONG.song.toLowerCase() == 'god of phones')
+				{
+					dad.x += -150;
+					dad.y += 450;
+				}
+				else
+				{
+					dad.x += 100;
+					dad.y += 450;
+				}	
 			case 'bamijitterfix':
 				dad.x -= 260;
 				dad.y -= 100;
@@ -1159,7 +1251,7 @@ class PlayState extends MusicBeatState
 		}
 
 		add(camFollow);
-
+			
 		FlxG.camera.follow(camFollow, LOCKON, 0.04 * (30 / (cast (Lib.current.getChildAt(0), Main)).getFPS()));
 		// FlxG.camera.setScrollBounds(0, FlxG.width, 0, FlxG.height);
 		FlxG.camera.zoom = defaultCamZoom;
@@ -1215,7 +1307,7 @@ class PlayState extends MusicBeatState
 			healthBar.createFilledBar(0xFF969696, 0xFF36A1BC);
 		// healthBar
 		add(healthBar);
-		
+
 		iconP1 = new HealthIcon(SONG.player1, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
 		add(iconP1);
@@ -1226,23 +1318,46 @@ class PlayState extends MusicBeatState
 
 		// Add Kade Engine watermark
 
-		if (SONG.song.toLowerCase() == 'cornholy')
+		if (SONG.song.toLowerCase() == 'cornholy' || SONG.song.toLowerCase() == 'god of phones')
 		{
-			kadeEngineWatermark = new FlxText(4,healthBarBG.y + 46,0,SONG.song + " " + (storyDifficulty == 3 ? "Holy" :storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy") + " - KE 1.4.2", 16);
+			if (SONG.song.toLowerCase() == 'cornholy')
+				kadeEngineWatermark = new FlxText(4,healthBarBG.y + 46,0,SONG.song + " " + (storyDifficulty == 3 ? "Unnerfed" :storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy") + " - KE 1.4.2", 16);
+			else
+				kadeEngineWatermark = new FlxText(4,healthBarBG.y + 46,0,SONG.song + " " + (storyDifficulty == 3 ? "Holy" :storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy") + " - KE 1.4.2", 16);
+			funnyWatermark = new FlxText(1280,0,0,"funny takeover 1.6", 16);
 			creditschance = FlxG.random.int(0, 10);
 			if (creditschance == 4)
 			{
-				creditsthing = new FlxText(4,healthBarBG.y + 28,0, "Credits to TJ255 and G-Corn Mania", 16);
+				if (SONG.song.toLowerCase() == 'god of phones')
+					creditsthing = new FlxText(4,healthBarBG.y + 28,0, "Credits to G-Corn Mania", 16);
+				else
+					creditsthing = new FlxText(4,healthBarBG.y + 28,0, "Credits to Omega138 and G-Corn Mania", 16);
 			}
 			else
 			{
-				creditsthing = new FlxText(4,healthBarBG.y + 28,0, "Credits to TJ255 and G-Corp Mania", 16);
+				if (SONG.song.toLowerCase() == 'god of phones')
+					creditsthing = new FlxText(4,healthBarBG.y + 28,0, "Credits to G-Corp Mania", 16);
+				else
+					creditsthing = new FlxText(4,healthBarBG.y + 28,0, "Credits to Omega138 and G-Corp Mania", 16);
+			}
+			if (SONG.song.toLowerCase() == 'god of phones')
+			{
+				if (FlxG.random.bool(1)) // 1% chance
+					creditsthing = new FlxText(4,healthBarBG.y + 28,0, "DO NOT SEARCH UP MADOKA MAGICA TYCOON IT DOESNT EXIST!", 9);
+			}
+			if (SONG.song.toLowerCase() == 'cornholy')
+			{
+				if (FlxG.random.bool(1)) // 1% chance
+					creditsthing = new FlxText(4,healthBarBG.y + 28,0, "game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead game dead ", 9);
 			}
 			kadeEngineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+			funnyWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 			creditsthing.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 			kadeEngineWatermark.scrollFactor.set();
+			funnyWatermark.scrollFactor.set();
 			creditsthing.scrollFactor.set();
 			add(kadeEngineWatermark);
+			add(funnyWatermark);
 			add(creditsthing);
 		}
 		else
@@ -1299,8 +1414,11 @@ class PlayState extends MusicBeatState
 		strumLineNotes.cameras = [camHUD];
 		notes.cameras = [camHUD];
 		kadeEngineWatermark.cameras = [camHUD];
-		if (SONG.song.toLowerCase() == 'cornholy')
+		if (SONG.song.toLowerCase() == 'cornholy' || SONG.song.toLowerCase() == 'god of phones')
+		{
 			creditsthing.cameras = [camHUD];
+			funnyWatermark.cameras = [camHUD];
+		}
 		healthBar.cameras = [camHUD];
 		healthBarBG.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
@@ -1323,7 +1441,7 @@ class PlayState extends MusicBeatState
 		// cameras = [FlxG.cameras.list[1]];
 		startingSong = true;
 		
-		if (curSong == 'Mamigation' || curSong == 'Salvation' || curSong == 'Cheating' || curSong == 'Unfairness')
+		if (curSong == 'Mamigation' || curSong == 'Salvation' || curSong == 'Cheating' || curSong == 'Unfairness' || curSong == '81.281.1.192' || curSong == 'Splitathon')
 			{
 				camHUD.alpha = 0.0;
 			}
@@ -1831,10 +1949,12 @@ class PlayState extends MusicBeatState
 		Conductor.songPosition = 0;
 		Conductor.songPosition -= Conductor.crochet * 5;
 
-		var swagCounter:Int = 0;
-
 		startTimer = new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer)
 		{
+			mamiphones = new Character(19999, 19287, 'mamigodofphones');
+			add(mamiphones);
+			mamiphones.dance();
+			remove(mamiphones);
 			dad.dance();
 			gf.dance();
 			if (allowBFanimupdate)
@@ -1869,6 +1989,15 @@ class PlayState extends MusicBeatState
 				{
 					swagCounter = 4;
 				}
+		/*	if (curSong == '81.281.1.192')
+			{
+				remove(boyfriend);
+				boyfriend = new Boyfriend(100, 100, "bambijoke");
+				add(boyfriend); 
+				remove(boyfriend);
+				boyfriend = new Boyfriend(100, 440, "bambi-splitathon");
+				add(boyfriend); 
+			} */
 
 			switch (swagCounter)
 
@@ -1971,6 +2100,18 @@ class PlayState extends MusicBeatState
 		FlxG.sound.music.onComplete = stopSong;
 		vocals.play();
 		lowhpmusic.play();
+
+		if (SONG.song.toLowerCase() == '81.281.1.192' || SONG.song.toLowerCase() == 'splitathon')
+		{
+			remove(kadeEngineWatermark);
+			FlxG.camera.follow(camFollow, LOCKON, 0.036);
+			camGame.alpha = 1.0;
+			dad.x = -2700;
+			boyfriend.x = 4750;
+			Lib.application.window.title = "Yeah";
+			FlxG.autoPause = false; // lmao
+			canPause = false; // trolled
+		}
 		
 		if (SONG.song.toLowerCase() == 'cheating' || SONG.song.toLowerCase() == 'unfairness')
 		{
@@ -1993,7 +2134,7 @@ class PlayState extends MusicBeatState
 			splitathonExpression('bruh', -170, 280);
 		}
 
-		if (SONG.song.toLowerCase() == 'salvation')
+		if (SONG.song.toLowerCase() == 'salvation' || SONG.song.toLowerCase() == 'god of phones')
 		{
 			new FlxTimer().start(1, function(okhesnotcheating:FlxTimer)
 			{
@@ -2513,9 +2654,27 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
+		elapsedtime += elapsed;
+		if (curbg != null)
+		{
+			if (curbg.active) // only the furiosity background is active
+			{
+				var shad = cast(curbg.shader, Shaders.GlitchShader);
+				shad.uTime.value[0] += elapsed;
+			}
+		}
+		if (SONG.song.toLowerCase() == 'god of phones' && curStep >= 898 && curStep <= 1441)
+		{
+			dad.y += (Math.sin(elapsedtime) * 0.2);
+		}
 		#if !debug
 		perfectMode = false;
 		#end
+		if (!BamberVariables.alreadydidthefix && FlxG.save.data.cheaterew)
+		{
+			BamberVariables.alreadydidthefix = true;
+			FlxG.resetState();
+		}
 
 		if (etesech)
 		{
@@ -2579,6 +2738,8 @@ class PlayState extends MusicBeatState
 
 		if (FlxG.keys.justPressed.F1 && anticheatactive && SONG.song.toLowerCase() != 'unfairness')
 		{
+			if (SONG.song.toLowerCase() == '81.281.1.192' || SONG.song.toLowerCase() == 'splitathon')
+				Sys.exit(0);
 			if (SONG.song.toLowerCase() == 'cheating')
 				SalvatiaEndingState.ending = 'pressing f1';
 			else
@@ -2594,12 +2755,17 @@ class PlayState extends MusicBeatState
 			if (dad.animation.curAnim.name.endsWith('-alt'))
 			{
 				iconP2.changeIcon('bamibutmami');
+				healthBar.createFilledBar(0xFFFFF6B3, 0xFF36A1BC);
+				healthBar.updateFilledBar();
 			}
 			else if (!dad.animation.curAnim.name.endsWith('-alt') && !dad.animation.curAnim.name.startsWith('idl'))
 			{
 				iconP2.changeIcon('bami');
+				healthBar.createFilledBar(0xFF0CB500, 0xFF36A1BC);
+				healthBar.updateFilledBar();
 			}
 		}
+
 		if (currentFrames == FlxG.save.data.fpsCap)
 		{
 			for(i in 0...notesHitArray.length)
@@ -2652,7 +2818,21 @@ class PlayState extends MusicBeatState
 			if (FlxG.save.data.accuracyDisplay)
 			{
 				if (curSong == 'Salvation')
-					scoreTxt.text = (FlxG.save.data.npsDisplay ? "NPS: " + nps + " | " : "") + "Score:" + (Conductor.safeFrames != 10 ? songScore + " (" + songScoreDef + ")" : "" + songScore) + " | Holy Power:" + (holyMisses * 50) + "% | Combo Breaks:" + misses + " | Accuracy:" + truncateFloat(accuracy, 2) + "% | " + generateRanking();
+				{
+					if (BamberVariables.isbambertake)
+						scoreTxt.text = (FlxG.save.data.npsDisplay ? "NPS: " + nps + " | " : "") + "Score:" + (Conductor.safeFrames != 10 ? songScore + " (" + songScoreDef + ")" : "" + songScore) + " | Holy Power:225% | Combo Breaks:" + misses + " | Accuracy:" + truncateFloat(accuracy, 2) + "% | " + generateRanking();
+					else
+						scoreTxt.text = (FlxG.save.data.npsDisplay ? "NPS: " + nps + " | " : "") + "Score:" + (Conductor.safeFrames != 10 ? songScore + " (" + songScoreDef + ")" : "" + songScore) + " | Holy Power:" + (holyMisses * 50) + "% | Combo Breaks:" + misses + " | Accuracy:" + truncateFloat(accuracy, 2) + "% | " + generateRanking();
+				}
+				else if (curSong == 'God Of Phones')
+				{
+					if (!mamiidlefix && phonehit)
+						scoreTxt.text = (FlxG.save.data.npsDisplay ? "NPS: " + nps + " | " : "") + "Score:" + (Conductor.safeFrames != 10 ? songScore + " (" + songScoreDef + ")" : "" + songScore) + " | Holy Power:" + (holyMisses * 50) + "% | Combo Breaks:" + misses + " | Accuracy:" + truncateFloat(accuracy, 2) + "% | " + generateRanking();
+					else if (phonehit && mamiidlefix)
+						scoreTxt.text = (FlxG.save.data.npsDisplay ? "NPS: " + nps + " | " : "") + "Score:" + (Conductor.safeFrames != 10 ? songScore + " (" + songScoreDef + ")" : "" + songScore) + " | Phone Smashing Power:" + (holyMisses * 50) + "% | Combo Breaks:" + misses + " | Accuracy:" + truncateFloat(accuracy, 2) + "% | " + generateRanking();
+					else
+						scoreTxt.text = (FlxG.save.data.npsDisplay ? "NPS: " + nps + " | " : "") + "Score:" + (Conductor.safeFrames != 10 ? songScore + " (" + songScoreDef + ")" : "" + songScore) + " | Combo Breaks:" + misses + " | Accuracy:" + truncateFloat(accuracy, 2) + "% | " + generateRanking();
+				}
 				else
 					scoreTxt.text = (FlxG.save.data.npsDisplay ? "NPS: " + nps + " | " : "") + "Score:" + (Conductor.safeFrames != 10 ? songScore + " (" + songScoreDef + ")" : "" + songScore) + " | Combo Breaks:" + misses + " | Accuracy:" + truncateFloat(accuracy, 2) + "% | " + generateRanking();
 			}
@@ -2690,6 +2870,19 @@ class PlayState extends MusicBeatState
 				FlxTransitionableState.skipNextTransIn = true;
 				FlxTransitionableState.skipNextTransOut = true;
 				FlxG.switchState(new SalvatiaEndingState());
+			}
+			else if (SONG.song.toLowerCase() == '81.281.1.192')
+			{
+				Application.current.window.alert("Connection terminated. I'm sorry to interrupt you, Elizabeth, if you still even remember that name, But I'm afraid you've been misinformed. \n
+				You are not here to receive a gift, nor have you been called here by the individual you assume, although, you have indeed been called. You have all been called here, into a labyrinth of sounds and smells, misdirection and misfortune. \n
+				A labyrinth with no exit, a maze with no prize. You don't even realize that you are trapped. Your lust for blood has driven you in endless circles, chasing the cries of children in some unseen chamber, always seeming so near, yet somehow out of reach, but you will never find them. \n
+				None of you will. This is where your story ends. And to you, my brave volunteer, who somehow found this job listing not intended for you, although there was a way out planned for you, I have a feeling that's not what you want. \n
+				I have a feeling that you are right where you want to be. I am remaining as well. I am nearby. This place will not be remembered, and the memory of everything that started this can finally begin to fade away. As the agony of every tragedy should. \n
+				And to you monsters trapped in the corridors, be still and give up your spirits. They don't belong to you. For most of you, I believe there is peace and perhaps more waiting for you after the smoke clears. \n
+				Although, for one of you, the darkest pit of Hell has opened to swallow you whole, so don't keep the devil waiting, old friend. My daughter, if you can hear me, I knew you would return as well. It's in your nature to protect the innocent. \n
+				I'm sorry that on that day, the day you were shut out and left to die, no one was there to lift you up into their arms the way you lifted others into yours, and then, what became of you. I should have known you wouldn't be content to disappear, not my daughter. \n
+				I couldn't save you then, so let me save you now. It's time to rest - for you, and for those you have carried in your arms. This ends for all of us.", 'Interpreter Miscommunication [1192.248]');
+				Sys.exit(0); // lmao
 			}
 			else
 			{
@@ -2747,7 +2940,7 @@ class PlayState extends MusicBeatState
 
 		if (healthBar.percent < 20)
 			iconP1.animation.curAnim.curFrame = 1;
-		else if (healthBar.percent > 80)
+		else if (healthBar.percent > 80 && SONG.player1 != 'bambi-splitathon')
 			iconP1.animation.curAnim.curFrame = 2;
 		else
 			iconP1.animation.curAnim.curFrame = 0;
@@ -2755,7 +2948,7 @@ class PlayState extends MusicBeatState
 		if (SONG.player2 != 'mami-tetris'){	
 			if (healthBar.percent > 80)
 				iconP2.animation.curAnim.curFrame = 1;
-			else if (healthBar.percent < 20 && !BamberVariables.didbambijoin)
+			else if (healthBar.percent < 20 && !BamberVariables.didbambijoin && !BamberVariables.isbambertake)
 				iconP2.animation.curAnim.curFrame = 2;
 			else
 				iconP2.animation.curAnim.curFrame = 0;
@@ -3073,19 +3266,21 @@ class PlayState extends MusicBeatState
 				}
 			}
 
-			if (camFollow.x != dad.getMidpoint().x + 150 + dadnoteMovementXoffset && !PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
+			if (camFollow.x != dad.getMidpoint().x + 150 + dadnoteMovementXoffset && !PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection && !isedward)
 			{
-				if (!BamberVariables.isjitterpart)
+				if (!BamberVariables.isjitterpart && SONG.song.toLowerCase() == 'cornholy' || !mamiphonesin)
 				{
-				if (FlxG.save.data.reducedMotion)
-				camFollow.setPosition(dad.getMidpoint().x + 150 + (lua != null ? getVar("followXOffset", "float") : 0), dad.getMidpoint().y - 100 + (lua != null ? getVar("followYOffset", "float") : 0));
-				else
+				if (FlxG.save.data.reducedMotion && !BamberVariables.isjitterpart)
+					camFollow.setPosition(dad.getMidpoint().x + 150 + (lua != null ? getVar("followXOffset", "float") : 0), dad.getMidpoint().y - 100 + (lua != null ? getVar("followYOffset", "float") : 0));
+				else if (!BamberVariables.isjitterpart) // oh my fucking god
 					camFollow.setPosition(dad.getMidpoint().x + 150 + dadnoteMovementXoffset + (lua != null ? getVar("followXOffset", "float") : 0), dad.getMidpoint().y - 100 + dadnoteMovementYoffset + (lua != null ? getVar("followYOffset", "float") : 0));
 				}
 				// camFollow.setPosition(lucky.getMidpoint().x - 120, lucky.getMidpoint().y + 210);
 
 				switch (dad.curCharacter)
 				{
+					case 'daveandmami':
+						camFollow.x += 40;
 					case 'mom':
 						camFollow.y = dad.getMidpoint().y;
 					case 'senpai':
@@ -3105,8 +3300,10 @@ class PlayState extends MusicBeatState
 				}
 			}
 
-			if (PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection && camFollow.x != boyfriend.getMidpoint().x - 100)
+			if (PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection && camFollow.x != boyfriend.getMidpoint().x - 100 && !isedward)
 			{
+				if (curSong == 'God Of Phones' && mamiphonesin)
+					mamiidlefix = true;
 				if (FlxG.save.data.reducedMotion)
 					camFollow.setPosition(boyfriend.getMidpoint().x - 100 + (lua != null ? getVar("followXOffset", "float") : 0), boyfriend.getMidpoint().y - 100 + (lua != null ? getVar("followYOffset", "float") : 0));
 				else
@@ -3136,7 +3333,10 @@ class PlayState extends MusicBeatState
 
 		if (camZooming)
 		{
-			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, 0.95);
+			if (isedward)
+				FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, 0.6);
+			else
+				FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, 0.95);
 			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, 0.95);
 		}
 
@@ -3179,6 +3379,8 @@ class PlayState extends MusicBeatState
 			}
 		}
 
+		if (health <= 0 && godmodecheat)
+			health = 1;
 		if (health <= 0 && godmodecheat == false && !songCleared)
 		{
 			setChrome(0.0);
@@ -3186,6 +3388,7 @@ class PlayState extends MusicBeatState
 				{
 					deathCause = 'holynote';
 				}
+			
 
 			boyfriend.stunned = true;
 
@@ -3197,20 +3400,19 @@ class PlayState extends MusicBeatState
 			FlxG.sound.music.stop();
 			lowhpmusic.stop();
 
-			if (SONG.song.toLowerCase() == 'salvation' || SONG.song.toLowerCase() == 'cheating' || SONG.song.toLowerCase() == 'unfairness')
+			if (SONG.song.toLowerCase() == 'salvation' || SONG.song.toLowerCase() == 'cheating' || SONG.song.toLowerCase() == 'unfairness' || SONG.song.toLowerCase() == '81.281.1.192' || SONG.song.toLowerCase() == 'splitathon')
 			{
 				if (deathCause == 'holynote')
 					SalvatiaEndingState.ending = 'headshot';
+				else if (SONG.song.toLowerCase() == '81.281.1.192' || SONG.song.toLowerCase() == 'splitathon')
+				{
+					canPause = true;
+					SalvatiaEndingState.ending = 'skill issue';
+				}
 				else if (!BamberVariables.isbambertake)
 				{
 					if (SONG.song.toLowerCase() == 'cheating' || SONG.song.toLowerCase() == 'unfairness')
 						SalvatiaEndingState.ending = 'amongus';
-				/*	else if (SONG.song.toLowerCase() == 'unfairness')
-					{
-						FlxG.sound.music.stop();
-						TitleState.initialized = false;
-						LoadingState.loadAndSwitchState(new VideoState("assets/videos/etesetch.webm", new TitleState()));
-					} */ 
 					else
 						SalvatiaEndingState.ending = 'pretakeover';
 				}
@@ -3356,7 +3558,7 @@ class PlayState extends MusicBeatState
 									camHUD.shake((notehealthdmg / 15), 0.25);
 							}
 		
-						if (SONG.song.toLowerCase() == 'cornholy' && !dad.animation.curAnim.name.endsWith('-alt') && bambipart && !BamberVariables.awesomepart && !screenshakefix)
+					/*	if (SONG.song.toLowerCase() == 'cornholy' && !dad.animation.curAnim.name.endsWith('-alt') && bambipart && !BamberVariables.awesomepart && !screenshakefix)
 						{
 							camGame.shake(0.0075, 0.05);
 							camHUD.shake(0.0075, 0.05);
@@ -3365,28 +3567,92 @@ class PlayState extends MusicBeatState
 						{
 							camGame.shake(0.00375, 0.0125);
 							camHUD.shake(0.00375, 0.0125);
-						}
+						} */
 
 						screenshakefix = false;
 
-						switch (Math.abs(daNote.noteData))
+						if (mamiphonesin)
 						{
-							case 2:
-								dad.playAnim('singUP' + altAnim, true);
-								dadnoteMovementYoffset = -15;
-								dadnoteMovementXoffset = 0;
-							case 3:
-								dad.playAnim('singRIGHT' + altAnim, true);
-								dadnoteMovementXoffset = 15;
-								dadnoteMovementYoffset = 0;
-							case 1:
-								dad.playAnim('singDOWN' + altAnim, true);
-								dadnoteMovementYoffset = 15;
-								dadnoteMovementXoffset = 0;
-							case 0:
-								dad.playAnim('singLEFT' + altAnim, true);
-								dadnoteMovementXoffset = -15;
-								dadnoteMovementYoffset = 0;
+							if (altAnim == '')
+							{
+								if (!dad.animation.curAnim.name.startsWith("idl"))
+									dad.playAnim('idle');
+								mamiidlefix = false;
+								if (!iconP2.animation.curAnim.name.startsWith('bamibut'))
+									iconP2.changeIcon('bamibutmami');
+								healthBar.createFilledBar(0xFFFFF6B3, 0xFF36A1BC);
+								healthBar.updateFilledBar();
+								camFollow.setPosition(mamiphones.getMidpoint().x + 150 + dadnoteMovementXoffset + (lua != null ? getVar("followXOffset", "float") : 0), mamiphones.getMidpoint().y - 100 + dadnoteMovementYoffset + (lua != null ? getVar("followYOffset", "float") : 0));
+								switch (Math.abs(daNote.noteData))
+								{
+									case 2:
+										mamiphones.playAnim('singUP', true);
+										dadnoteMovementYoffset = -15;
+										dadnoteMovementXoffset = 0;
+									case 3:
+										mamiphones.playAnim('singRIGHT', true);
+										dadnoteMovementXoffset = 15;
+										dadnoteMovementYoffset = 0;
+									case 1:
+										mamiphones.playAnim('singDOWN', true);
+										dadnoteMovementYoffset = 15;
+										dadnoteMovementXoffset = 0;
+									case 0:
+										mamiphones.playAnim('singLEFT', true);
+										dadnoteMovementXoffset = -15;
+										dadnoteMovementYoffset = 0;
+								}
+							}
+							else
+							{
+								mamiidlefix = true;
+								if (iconP2.animation.curAnim.name.startsWith('bamibut'))
+									iconP2.changeIcon('bami');
+								healthBar.createFilledBar(0xFF0CB500, 0xFF36A1BC);
+								healthBar.updateFilledBar();
+								camFollow.setPosition(dad.getMidpoint().x + 150 + dadnoteMovementXoffset + (lua != null ? getVar("followXOffset", "float") : 0), dad.getMidpoint().y - 100 + dadnoteMovementYoffset + (lua != null ? getVar("followYOffset", "float") : 0));
+								switch (Math.abs(daNote.noteData))
+								{
+									case 2:
+										dad.playAnim('singUP', true);
+										dadnoteMovementYoffset = -15;
+										dadnoteMovementXoffset = 0;
+									case 3:
+										dad.playAnim('singRIGHT', true);
+										dadnoteMovementXoffset = 15;
+										dadnoteMovementYoffset = 0;
+									case 1:
+										dad.playAnim('singDOWN', true);
+										dadnoteMovementYoffset = 15;
+										dadnoteMovementXoffset = 0;
+									case 0:
+										dad.playAnim('singLEFT', true);
+										dadnoteMovementXoffset = -15;
+										dadnoteMovementYoffset = 0;
+								}
+							}
+						}
+						else
+						{
+							switch (Math.abs(daNote.noteData))
+							{
+								case 2:
+									dad.playAnim('singUP' + altAnim, true);
+									dadnoteMovementYoffset = -15;
+									dadnoteMovementXoffset = 0;
+								case 3:
+									dad.playAnim('singRIGHT' + altAnim, true);
+									dadnoteMovementXoffset = 15;
+									dadnoteMovementYoffset = 0;
+								case 1:
+									dad.playAnim('singDOWN' + altAnim, true);
+									dadnoteMovementYoffset = 15;
+									dadnoteMovementXoffset = 0;
+								case 0:
+									dad.playAnim('singLEFT' + altAnim, true);
+									dadnoteMovementXoffset = -15;
+									dadnoteMovementYoffset = 0;
+							}
 						}
 	
 						if (FlxG.save.data.cpuStrums)
@@ -3409,6 +3675,7 @@ class PlayState extends MusicBeatState
 							}
 
 						dad.holdTimer = 0;
+					//	mamiphones.holdTimer = 0;
 	
 						if (SONG.needsVoices)
 							vocals.volume = 1;
@@ -3468,7 +3735,10 @@ class PlayState extends MusicBeatState
 						else
 						{
 							healthbarshake(1.0);
-							health -= 0.1;
+							if (SONG.song.toLowerCase() == '81.281.1.192')
+								health -= 0.09;
+							else
+								health -= 0.1;
 							if(daNote.isSustainNote)
 								misses++;
 
@@ -3530,10 +3800,20 @@ class PlayState extends MusicBeatState
 			else
 				iconP1.animation.play('bf-shot');
 			//dad.playAnim('shoot', true); //no animation bruh
-			FlxG.sound.play(Paths.sound('MAMI_shoot','shared'));
+			if (curSong == 'God Of Phones')
+			{
+				phonehit = true;
+				if (mamiidlefix)
+					FlxG.sound.play(Paths.sound('phone','shared'), 0.7);
+				else if (mamiphones.animation.curAnim.name.startsWith('sing'))
+					FlxG.sound.play(Paths.sound('MAMI_shoot','shared'), 0.7);
+			}
+			else
+				FlxG.sound.play(Paths.sound('MAMI_shoot','shared'));
 			FlxG.camera.shake(0.02, 0.2);
 			boyfriend.playAnim('hit', true);
-			holyMisses += 0.5;
+			if (curSong != 'God Of Phones')
+				holyMisses += 0.5;
 			FlxTween.color(healthBar, .20, FlxColor.RED, FlxColor.WHITE, {ease: FlxEase.quadOut});
 			FlxTween.color(iconP1, .20, FlxColor.RED, FlxColor.WHITE, {ease: FlxEase.quadOut});
 			FlxTween.color(iconP2, .20, FlxColor.RED, FlxColor.WHITE, {ease: FlxEase.quadOut});
@@ -3579,6 +3859,8 @@ class PlayState extends MusicBeatState
 				{
 					switch (curSong.toLowerCase())
 					{
+						case '81.281.1.192':
+							Sys.exit(0);
 						default:
 							endSong();
 					}
@@ -3596,6 +3878,8 @@ class PlayState extends MusicBeatState
 			Lua.close(lua);
 			lua = null;
 		}
+		if (SONG.song.toLowerCase() == '81.281.1.192')
+			Sys.exit(0);
 
 		songCleared = true;
 		canPause = false;
@@ -3625,6 +3909,10 @@ class PlayState extends MusicBeatState
 
 				if (SONG.song.toLowerCase() == 'salvation')
 				{
+				/*	if (SONG.song.toLowerCase() == 'splitathon')
+					{
+						SalvatiaEndingState.ending = 'ascended';
+					} */ // dead eduardo meme
 					if (accuracy == 100) // BUT HOW!??!?!
 					{
 						SalvatiaEndingState.ending = 'best';
@@ -4584,7 +4872,16 @@ class PlayState extends MusicBeatState
 					{
 						if (daNote.holy)
 							{
-								FlxG.sound.play(Paths.sound('MAMI_shoot','shared'));
+								if (curSong == 'God Of Phones')
+								{
+									phonehit = true; // lets hope this works
+									if (mamiphones.animation.curAnim.name.startsWith('sing'))
+										FlxG.sound.play(Paths.sound('MAMI_shoot','shared'), 0.7);
+									else
+										FlxG.sound.play(Paths.sound('phone','shared'), 0.7);
+								}
+								else
+									FlxG.sound.play(Paths.sound('MAMI_shoot','shared'));
 								boyfriend.playAnim('dodge', true); //its just here i will make it work propperly tomorrow or smth
 								FlxG.camera.shake(0.015, 0.3);
 								camHUD.shake(0.010, 0.3);
@@ -4751,7 +5048,8 @@ class PlayState extends MusicBeatState
 	{
 		if (!boyfriend.stunned)
 		{
-			healthbarshake(1.0);
+			if (SONG.song.toLowerCase() != '81.281.1.192')
+				healthbarshake(1.0);
 
 			if (storyDifficulty == 3)
 				{
@@ -4765,7 +5063,12 @@ class PlayState extends MusicBeatState
 				if (daNote.isSustainNote)
 					health -= 0.05; //you lose less health per sustain note you miss
 				else
-					health -= 0.125;
+					{
+						if (SONG.song.toLowerCase() == '81.281.1.192')
+							health -= 0.01125;
+						else
+							health -= 0.125;
+					}
 				}
 
 
@@ -5114,6 +5417,17 @@ class PlayState extends MusicBeatState
 
 	override function stepHit()
 	{
+	/*	if (reducetheholypower)
+			holyfuckingshitbambi -= 1.54; */
+		if (spamming)
+		{
+			defaultCamZoom += 0.003;
+		}
+		if (ohmygee)
+		{
+			FlxG.camera.zoom += 0.0075;
+			camHUD.zoom += 0.015;
+		}
 		super.stepHit();
 		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
 		{
@@ -5132,12 +5446,96 @@ class PlayState extends MusicBeatState
 			// dad.dance();
 		}
 
+		if (curSong == 'God Of Phones')
+		{
+			switch (curStep)
+			{
+				case 2:
+					remove(dad);
+					dad = new Character(-200, 70, 'mami'); //funny
+					add(dad);
+					remove(dad);
+					dad = new Character(-50, 550, 'bambi-splitathon'); //funny
+					add(dad);
+					remove(boyfriend);
+					boyfriend = new Boyfriend(1530, 450, SONG.player1);
+					add(boyfriend);
+					remove(gf);
+					gf = new Character(500, 180, 'gf');
+					gf.scrollFactor.set(0.95, 0.95);
+					add(gf);
+				case 128:
+					camHUD.alpha = 1.0;
+					camGame.alpha = 1.0;
+				case 896:
+					camHUD.alpha = 0.0;
+					camGame.alpha = 0.0;
+				case 898:
+					bambiconfused = new FlxSprite(dad.x + 20 - 600, dad.y + 20);
+					bambiconfused.frames = Paths.getSparrowAtlas('dave/wait what', 'shared');
+					bambiconfused.animation.addByPrefix('what', 'what', 24, true);
+					bambiconfused.animation.play('what');
+					bambiconfused.antialiasing = true;
+					add(bambiconfused);
+					cube.x -= 600;
+					remove(dad);
+					dad = new Character(-200, 40, '3dmami'); // oh
+					add(dad);
+					iconP2.changeIcon('mami');
+					healthBar.createFilledBar(0xFFFFF6B3, 0xFF36A1BC);
+					healthBar.updateFilledBar();
+				case 920:
+					if (creditsthing.text != 'DO NOT SEARCH UP MADOKA MAGICA TYCOON IT DOESNT EXIST!')
+					{
+						creditsthing.text = 'Credits to G-Corp Mania and RainyFroggo';
+					}
+				case 928:
+					camHUD.alpha = 1.0;
+					camGame.alpha = 1.0;
+				case 1440:
+					camHUD.alpha = 0.0;
+					camGame.alpha = 0.0;
+					dad.y = 40;
+				case 1442:
+					mamiphones = new Character(dad.x - 150, dad.y + 180, 'mamigodofphones');
+					mamiphones.setGraphicSize(Std.int(mamiphones.width * 1.25));
+					add(mamiphones);
+					mamiphonesin = true;
+					iconP2.changeIcon('bamibutmami');
+					remove(bambiconfused);
+					var cubemami:FlxSprite = new FlxSprite(-205, 905).loadGraphic(Paths.image('dave/cube4'));
+					cubemami.setGraphicSize(Std.int(cubemami.width * 2.05));
+					cubemami.antialiasing = false;
+					cubemami.active = false;
+					add(cubemami);
+					remove(dad);
+					dad = new Character(bambiconfused.x - 20, bambiconfused.y - 20, 'bambi-splitathon');
+					add(dad);
+					mamiphones.playAnim('lookleft');
+					if (creditsthing.text != 'DO NOT SEARCH UP MADOKA MAGICA TYCOON IT DOESNT EXIST!')
+					{
+						creditsthing.text = 'Credits to G-Corp Mania';
+					}
+				case 1472:
+					camHUD.alpha = 1.0;
+					camGame.alpha = 1.0;
+				case 1784 | 1788:
+					FlxG.camera.zoom += 0.1;
+					camHUD.zoom += 0.1;
+				case 1984 | 2016 | 2048 | 2080 | 2112 | 2114 | 2176 | 2208:
+					defaultCamZoom += 0.025;
+				case 2240:
+					defaultCamZoom = 0.45;
+				case 2528:
+					camGame.alpha = 0;
+					camHUD.alpha = 0;
+			}
+		}
+
 		if (curSong == 'Cornholy')
 			{
 				switch (curStep)
 				{
-					case 4:
-						BamberVariables.thefunnyfix = false;
 					case 128:
 						BamberVariables.didbambijoin = true;
 						remove(dad);
@@ -5146,6 +5544,7 @@ class PlayState extends MusicBeatState
 						FlxG.camera.zoom += 0.1;
 						camHUD.zoom += 0.1;
 						bambipart = true;
+						creditsthing.text = 'Credits to Omega138 and G-Corp Mania';
 						(cast (Lib.current.getChildAt(0), Main)).setFPSCap(330); // didnt work :sad:
 					case 132 | 136 | 140 | 144 | 148 | 152 | 156 | 160 | 164 | 168 | 172 | 176 | 180 | 182 | 184 | 186 | 188 | 320 | 324 | 328 | 332 | 336 | 340 | 342 | 344 | 348 | 350 | 352 | 356 | 360 | 364 | 368 | 372 | 376 | 380 | 520 | 528 | 536 | 544 | 552 | 568 | 576 | 584 | 586 | 588 | 590 | 600 | 738 | 740 | 744 | 748 | 834 | 836 | 838 | 840 | 844 | 852 | 856 | 860 | 872 | 884 | 880 | 888 | 892 | 900 | 904 | 908 | 912 | 916 | 920 | 922 | 924 | 925 | 926 | 927:
 					// make a case statement for every step? nah lets just put them all in one line LOL
@@ -5174,7 +5573,7 @@ class PlayState extends MusicBeatState
 						FlxG.camera.zoom += 0.015;
 						camHUD.zoom += 0.03;
 					case 768:
-						gfSpeed = 2;
+				//		gfSpeed = 2;
 						FlxG.camera.zoom += 0.015;
 						camHUD.zoom += 0.03;
 					case 832:
@@ -5183,24 +5582,16 @@ class PlayState extends MusicBeatState
 						camHUD.zoom += 0.03;
 					case 848:
 						gfSpeed = 2;
-						BamberVariables.thatpart = true;
-						gorls.animation.play('move', true);
-						weebGorl.animation.play('move', true);
 						FlxG.camera.zoom += 0.015;
 						camHUD.zoom += 0.03;
 					case 864:
 						gfSpeed = 4;
-						gorls.animation.play('move', true);
-						weebGorl.animation.play('move', true);
 						FlxG.camera.zoom += 0.015;
 						camHUD.zoom += 0.03;
 					case 896:
 						gfSpeed = 1;
 						FlxG.camera.zoom += 0.015;
 						camHUD.zoom += 0.03;
-						gorls.animation.play('move', true);
-						weebGorl.animation.play('move', true);
-						BamberVariables.thatpart = false;
 					case 1120:
 						BamberVariables.awesomepart = true;
 					case 1248:
@@ -5232,9 +5623,61 @@ class PlayState extends MusicBeatState
 					case 704:
 						bambidrainthing = false;
 					case 768:
-						etesetch = true;
+						etesetch = true; // YOU SUCK!!! ending
 				}
 			}
+			if (FlxG.random.bool(15) && curSong == 'Salvation' && !songCleared && !BamberVariables.isbambertake)
+			{
+				salvationLightFlicker();
+			}
+		if (curSong == '81.281.1.192')
+			{
+				switch (curStep)
+				{
+					case 128:
+						healthBarBG.antialiasing = true;
+						healthBar.antialiasing = true;
+						epicintro = true;
+						camZooming = true;
+					case 724:
+						health += 1;
+					case 768:
+						ribbongrab(100, 24);
+					case 1536:
+						trace(Conductor.songPosition);
+						camHUD.alpha = 0.0;
+						epicintro = false;
+						canPause = true;
+						FlxG.autoPause = true;
+						Lib.application.window.title = "Friday Night Funkin' Vs. Mami [FULL WEEK]";
+						defaultCamZoom = 0.3;
+					/*	remove(boyfriend);
+						boyfriend = new Boyfriend(4750, 440, "bambijoke");
+						add(boyfriend);
+						FlxG.camera.flash(FlxColor.WHITE, 1); */
+					case 1544:
+						camZooming = false;
+						remove(dad);
+						dad = new Character(-2700, 100, "mami-holy-postsnap");
+						add(dad);
+				}
+			}
+		if (curSong == 'Splitathon')
+		{
+			switch (curStep)
+			{
+				case 32:
+					FlxG.camera.zoom += 0.3;
+					camHUD.zoom += 0.6;
+					camHUD.alpha = 1;
+					healthBar.createFilledBar(0xFF0F5FFF, 0xFF0CB500);
+					healthBar.updateFilledBar();
+					iconP2.changeIcon('dave');
+					remove(dad);
+					dad = new Character(-2700, 100, 'dave-splitathon');
+					add(dad);
+			}
+		}
 		if (curSong == 'Salvation' && !songCleared)
 			{
 				switch (curStep)
@@ -5269,15 +5712,24 @@ class PlayState extends MusicBeatState
 					case 74:
 						blackOverlay.visible = false;
 						camHUD.alpha = 1.0;
+					case 1242:
+						trace(Conductor.songPosition);
+						cameraZoomrate = 4;
+						defaultCamZoom = 1.15;
+						camHUD.alpha = 0.0;
+						blackOverlay.visible = true;
+						trace("funny kade watermark: " + kadeEngineWatermark.x + " " + kadeEngineWatermark.y);
+						addSplitathonChar("bambi-splitathon");
+						FlxG.sound.play(Paths.sound('bambigoesin')); // did you know mami_shoot and bambigoesin is from the same scene (mami_shoot is from the madoka magica movie eternal and bambigoesin is from madoka magica episode 10 both of which have spoilers i think)
+						FlxG.drawFramerate = 160;
+						health = 2;
 					case 1264:
 						BamberVariables.isbambertake = true;
-						blackOverlay.alpha = 0.8;
-						FlxTween.tween(blackOverlay, {alpha: 1}, 2, {ease: FlxEase.quartOut});
+					//	blackOverlay.alpha = 0.8;
+					//	FlxTween.tween(blackOverlay, {alpha: 1}, 2, {ease: FlxEase.quartOut});
 						dad.playAnim('idle', true);
 						healthBar.createFilledBar(0xFF0CB500, 0xFF36A1BC); // yeah
-					case 1296:
-						blackOverlay.alpha = 0.8;
-						FlxTween.tween(blackOverlay, {alpha: 1}, 2, {ease: FlxEase.quartOut});
+						healthBar.updateFilledBar();
 					case 1328:
 						blackOverlay.alpha = 0.6;
 						FlxTween.tween(blackOverlay, {alpha: 1}, 2, {ease: FlxEase.quartOut});
@@ -5295,6 +5747,7 @@ class PlayState extends MusicBeatState
 						kadeEngineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 						kadeEngineWatermark.scrollFactor.set();
 						add(kadeEngineWatermark);
+					//	reducetheholypower = true;
 
 						kadeEngineWatermark.cameras = [camHUD];
 
@@ -5362,7 +5815,7 @@ class PlayState extends MusicBeatState
 						FlxG.camera.zoom += 10;
 						camHUD.zoom += 10;
 						remove(kadeEngineWatermark);
-						kadeEngineWatermark = new FlxText(4,healthBarBG.y + 46,0,"Screw you!" + " " + "- KE 1.4.2", 16);
+						kadeEngineWatermark = new FlxText(4,healthBarBG.y + 246,0,"Screw you!" + " " + "- KE 1.4.2", 16);
 						kadeEngineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 						kadeEngineWatermark.scrollFactor.set();
 						add(kadeEngineWatermark);
@@ -5420,6 +5873,18 @@ class PlayState extends MusicBeatState
 				if (holyMisses > 0.50)
 					holyMisses -= 0.01;
 			}
+		if (SONG.song.toLowerCase() == '81.281.1.192' && curStep >= 1536 && !camZooming && curBeat % 2 == 0)
+		{
+			dad.playAnim('idle', true);
+		}
+
+		if (curBeat % 2 == 0 && epicintro)
+		{
+			FlxG.camera.zoom += 0.015;
+			camHUD.zoom += 0.03;
+			if (camHUD.alpha <= 1)
+				camHUD.alpha += 0.0625;
+		}
 
 		if (FlxG.save.data.useShaders)
 			{
@@ -5448,21 +5913,20 @@ class PlayState extends MusicBeatState
 		}
 			// else
 			// Conductor.changeBPM(SONG.bpm);
-		
-		if (dad.animation.finished) // dave and bambi idle animation system
+		if (mamiphonesin && mamiphones.animation.finished && !mamiphones.animation.curAnim.name.startsWith('look'))
+		{
+			if (mamiphones.holdTimer <= 0)
 			{
-				if (dad.holdTimer <= 0)
-				{
-				/*	if (BamberVariables.disruptionmoment)
-					{
-					//	if (curBeat % 2 == 0) // offsync fix didnt work
-						if (gf.animation.curAnim.name.startsWith('danceRight')) // lets hope this works
-							dad.dance();
-					} // you know what imma just keep it like that
-					else */
-						dad.dance();
-				}
+				mamiphones.dance();
 			}
+		}
+		else if (dad.animation.finished) // dave and bambi idle animation system
+		{
+			if (dad.holdTimer <= 0)
+			{
+				dad.dance();
+			}
+		}
 		// FlxG.log.add('change bpm' + SONG.notes[Std.int(curStep / 16)].changeBPM);
 		wiggleShit.update(Conductor.crochet);
 
@@ -5601,7 +6065,6 @@ class PlayState extends MusicBeatState
 				camera.shake(0.005,0.25);
 				camHUD.shake(0.005,0.25);
 			}
-
 		if (curSong == 'Salvation' && !songCleared)
 			{
 				switch (curBeat)
@@ -5733,12 +6196,12 @@ class PlayState extends MusicBeatState
 						cameraZoomrate = 4;
 						defaultCamZoom = 0.7;
 
-					case 312:
+				/*	case 312:
 						cameraZoomrate = 4;
 						defaultCamZoom = 1.15;
 						camHUD.alpha = 0.0;
 						blackOverlay.visible = true;
-						addSplitathonChar("bambi-splitathon");
+						addSplitathonChar("bambi-splitathon"); */ // used for stephit instead
 					}
 			}
 
@@ -5919,7 +6382,7 @@ class PlayState extends MusicBeatState
 			{
 				if (!BamberVariables.alreadycompletedcornholyshit)
 				{
-					if (curBeat % 2 == 1) // 1 * 2 = 2 DID YOU GUYS KNOW THAT?! I DIDNT! -headshotsniper
+					if (curBeat % 2 == 1)
 					{
 						gorls.animation.play('move', true);
 						weebGorl.animation.play('move', true);
@@ -5927,13 +6390,13 @@ class PlayState extends MusicBeatState
 				}
 				else if (BamberVariables.awesomepart)
 				{
-					if (curBeat % 1 == 0) // 1 * 2 = 2 DID YOU GUYS KNOW THAT?! I DIDNT! -headshotsniper
+					if (curBeat % 1 == 0)
 					{
 						gorls.animation.play('move', true);
 						weebGorl.animation.play('move', true);
 					}
 				}
-				else if (curBeat % 2 == 0 && !BamberVariables.thatpart && !BamberVariables.thefunnyfix) // 1 * 2 = 2 DID YOU GUYS KNOW THAT?! I DIDNT! -headshotsniper
+				else if (curBeat % (gfSpeed * 2) == 0)
 					{
 						gorls.animation.play('move', true);
 						weebGorl.animation.play('move', true);

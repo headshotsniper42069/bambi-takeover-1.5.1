@@ -117,6 +117,9 @@ class KadeEngineData
 		if (FlxG.save.data.tickets == null)
 			FlxG.save.data.tickets = 0;
 
+		if (FlxG.save.data.newending == null)
+			FlxG.save.data.newending = false;
+
 		Conductor.recalculateTimings();
 
 		Main.watermarks = FlxG.save.data.watermark;

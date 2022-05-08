@@ -35,6 +35,7 @@ import openfl.events.IOErrorEvent;
 import openfl.media.Sound;
 import openfl.net.FileReference;
 import openfl.utils.ByteArray;
+import lime.utils.Log;
 
 using StringTools;
 
@@ -397,7 +398,6 @@ class ChartingState extends MusicBeatState
 		// WONT WORK FOR TUTORIAL OR TEST SONG!!! REDO LATER
 		vocals = new FlxSound().loadEmbedded(Paths.voices(daSong));
 		FlxG.sound.list.add(vocals);
-
 		FlxG.sound.music.pause();
 		vocals.pause();
 
@@ -1287,8 +1287,15 @@ class ChartingState extends MusicBeatState
 
 	function loadJson(song:String):Void
 	{
-		PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
-		FlxG.resetState();
+		if (song == '81.281.1.192' || song == 'splitathon')
+		{
+			LoadingState.loadAndSwitchState(new VideoState("assets/videos/john roblos.webm", new SalvatiaEndingState(true))); // because
+		}
+		else
+		{
+			PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
+			FlxG.resetState();
+		}
 	}
 
 	function loadAutosave():Void
