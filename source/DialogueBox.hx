@@ -11,6 +11,7 @@ import flixel.input.FlxKeyManager;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import flixel.system.FlxSound;
 
 using StringTools;
 
@@ -51,6 +52,13 @@ class DialogueBox extends FlxSpriteGroup
 	var arrowDio:FlxSprite;
 	var bgFade:FlxSprite;
 
+	var imGonnaBreakMyPhone:FlxSound;
+	var isCornTheftAboutToPlay:Bool = false;
+	var whatsuhh:Bool = false;
+	var funny:FlxSprite;
+	var epic:FlxSound;
+	var doessheknowtext:FlxText;
+
 	var ohName:Bool = false;
 	var bonk:Bool = false;
 
@@ -58,6 +66,9 @@ class DialogueBox extends FlxSpriteGroup
 	{
 		super();
 
+		imGonnaBreakMyPhone = FlxG.sound.load(Paths.music('cutscenes/Singing'), 1, true); // Moldy Gaming Edition 2.0: Bambi Appears
+		imGonnaBreakMyPhone.volume = 0;
+		imGonnaBreakMyPhone.play();
 		if (FlxG.random.bool(1)) //1 out of 100 for "Oh?" translation error in Magia Record EN, thanks TAU.
 			{
 				ohName = true;
@@ -297,6 +308,19 @@ class DialogueBox extends FlxSpriteGroup
 		dialogue = new Alphabet(0, 80, "", false, true);
 		// dialogue.x = 90;
 		// add(dialogue);
+
+		funny = new FlxSprite(0, 0, Paths.image("dave/does she know", "shared"));
+		funny.alpha = 0;
+		add(funny);
+
+		epic = FlxG.sound.load(Paths.sound("epic", "shared"));
+
+		doessheknowtext = new FlxText(0, 0, 0, "does she know", 24);
+		doessheknowtext.font = Paths.font("comic.ttf");
+		doessheknowtext.screenCenter(X);
+		doessheknowtext.y = 620;
+		doessheknowtext.alpha = 0;
+		add(doessheknowtext);
 	}
 
 	var dialogueOpened:Bool = false;
@@ -315,7 +339,7 @@ class DialogueBox extends FlxSpriteGroup
 
 		dialogueOpened = true;
 
-		if (FlxG.keys.justPressed.ESCAPE && dialogueStarted == true && dialogueSkipped == false)
+		if (FlxG.keys.justPressed.ESCAPE && dialogueStarted == true && dialogueSkipped == false && !isCornTheftAboutToPlay && !whatsuhh)
 			{
 				isEnding = true;
 				dialogueSkipped = true;
@@ -325,6 +349,8 @@ class DialogueBox extends FlxSpriteGroup
 
 				if (PlayState.SONG.song.toLowerCase() == 'reminisce')
 					FlxG.sound.music.fadeOut(2.2, 0);
+
+				lime.app.Application.current.window.title = "Friday Night Funkin' Vs. Mami [FULL WEEK]";
 
 				new FlxTimer().start(0.2, function(tmr:FlxTimer)
 				{
@@ -350,6 +376,7 @@ class DialogueBox extends FlxSpriteGroup
 					nameDialogue.visible = false;
 					swagDialogue.alpha -= 1 / 5;
 					dropText.alpha = swagDialogue.alpha;
+					imGonnaBreakMyPhone.volume -= 1 / 5;
 				}, 5);
 
 				new FlxTimer().start(1.2, function(tmr:FlxTimer)
@@ -360,7 +387,7 @@ class DialogueBox extends FlxSpriteGroup
 		}
 				
 
-		if (FlxG.keys.justPressed.ENTER && dialogueStarted == true && isEnding == false)
+		if (FlxG.keys.justPressed.ENTER && dialogueStarted == true && isEnding == false && !isCornTheftAboutToPlay && !whatsuhh)
 		{
 			remove(dialogue);
 				
@@ -371,6 +398,7 @@ class DialogueBox extends FlxSpriteGroup
 				if (!isEnding)
 				{
 					isEnding = true;
+					lime.app.Application.current.window.title = "Friday Night Funkin' Vs. Mami [FULL WEEK]";
 
 					if (PlayState.SONG.song.toLowerCase() == 'connect')
 						FlxG.sound.music.fadeOut(2.2, 0);
@@ -402,6 +430,7 @@ class DialogueBox extends FlxSpriteGroup
 						nameDialogue.visible = false;
 						swagDialogue.alpha -= 1 / 5;
 						dropText.alpha = swagDialogue.alpha;
+						imGonnaBreakMyPhone.volume -= 1 / 5;
 					}, 5);
 
 					new FlxTimer().start(1.2, function(tmr:FlxTimer)
@@ -432,7 +461,41 @@ class DialogueBox extends FlxSpriteGroup
 		trace('DIALOGUE START');
 		// swagDialogue.text = ;
 		swagDialogue.resetText(dialogueList[0]);
-		swagDialogue.start(0.04, true);
+		if (dialogueList[0].contains("I'll eliminate anyone in our way")) // does she know
+		{
+			isCornTheftAboutToPlay = true;
+		}
+		else if (dialogueList[0].contains("umm what i-"))
+		{
+			whatsuhh = true;
+			imGonnaBreakMyPhone.fadeOut(1.5);
+			epic = FlxG.sound.load(Paths.sound("whats", "shared"));
+			epic.play();
+			swagDialogue.sounds = null;
+		}
+		swagDialogue.start(0.04, true, false, null, function()
+			{
+				if (isCornTheftAboutToPlay)
+					new FlxTimer().start(0.75, function(thing:FlxTimer){
+						funny.alpha = 1;
+						doessheknowtext.alpha = 1;
+						epic.play();
+						new FlxTimer().start(0.4, function(thing:FlxTimer){
+							funny.alpha = 0;
+							doessheknowtext.alpha = 0;
+							epic.pause();
+							isCornTheftAboutToPlay = false;
+						});
+					});
+				if (whatsuhh)
+				{
+					whatsuhh = false;
+					epic.pause();
+					dialogueList.remove(dialogueList[0]);
+					swagDialogue.sounds = [FlxG.sound.load(Paths.sound('pixelText'), 0.6)];
+					startDialogue();
+				}
+			});
 		box.flipX = false;
 		nameDialogue.x = 225;
 		switch (curCharacter)
@@ -740,6 +803,18 @@ class DialogueBox extends FlxSpriteGroup
 				{
 					portraitNemuPost.visible = true;
 				}
+		}
+		if (curCharacter.contains('bambi'))
+		{
+			imGonnaBreakMyPhone.volume = 1;
+			FlxG.sound.music.volume = 0;
+			lime.app.Application.current.window.title = "Friday Night Funkin': Vs Dave and Bambi 1.02";
+		}
+		else
+		{
+			imGonnaBreakMyPhone.volume = 0;
+			FlxG.sound.music.volume = 1;
+			lime.app.Application.current.window.title = "Friday Night Funkin' Vs. Mami [FULL WEEK]";
 		}
 		if (ohName)
 			nameDialogue.text = 'Oh?';

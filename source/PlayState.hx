@@ -145,6 +145,7 @@ class PlayState extends MusicBeatState
 	private var mamiphones:Character;
 	private var gf:Character;
 	private var boyfriend:Boyfriend;
+	private var bambihudcornholy:FlxSprite;
 
 	private var notes:FlxTypedGroup<Note>;
 	private var unspawnNotes:Array<Note> = [];
@@ -507,6 +508,23 @@ class PlayState extends MusicBeatState
 
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
+
+	//	lime.app.Application.current.window.width = 1280;
+    //    lime.app.Application.current.window.height = 720;
+
+	/*	lime.app.Application.current.window.onResize.add(function(thing:Int, thing2:Int){
+			trace("resized");
+			if (thing > 1280)
+			{
+				trace("Woah there, we haven't expanded our rendering beyond that width!");
+				lime.app.Application.current.window.width = 1280;
+			}
+			if (thing2 > 720)
+			{
+				trace("Woah there, we haven't expanded our rendering beyond that height!");
+				lime.app.Application.current.window.height = 720;
+			}
+		}); */
 
 		sicks = 0;
 		bads = 0;
@@ -1410,6 +1428,11 @@ class PlayState extends MusicBeatState
 		healthDrainIndicator.setGraphicSize(Std.int(healthDrainIndicator.width * 1.5));
 		healthDrainIndicator.alpha = 0.0;
 		FlxTween.tween(healthDrainIndicator, {y: (iconP1.y + 100) - 10}, 1, {type: FlxTweenType.PINGPONG, ease: FlxEase.quadInOut});
+		
+		bambihudcornholy = new FlxSprite(0, 0, Paths.image("dave/bambi", "shared"));
+		bambihudcornholy.screenCenter();
+		bambihudcornholy.alpha = 0;
+		add(bambihudcornholy);
 
 		strumLineNotes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -1425,6 +1448,7 @@ class PlayState extends MusicBeatState
 		iconP2.cameras = [camHUD];
 		healthDrainIndicator.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
+		bambihudcornholy.cameras = [camOVERLAY]; // lol
 		doof.cameras = [camOVERLAY];
 		if (FlxG.save.data.songPosition)
 		{
@@ -2688,6 +2712,91 @@ class PlayState extends MusicBeatState
 		{
 			health -= 0.001875;
 		}
+	/*	if(FlxG.keys.justPressed.P)
+		{
+			FlxG.sound.music.pause();
+			vocals.pause();
+			lowhpmusic.pause();
+			godmodecheat = true;
+			if (SONG.song.toLowerCase() == 'cornholy')
+				Conductor.songPosition = 86000;
+			else
+				Conductor.songPosition = 93000;
+			notes.forEachAlive(function(daNote:Note)
+			{
+				if(daNote.strumTime + 800 < Conductor.songPosition) {
+					daNote.active = false;
+					daNote.visible = false;
+
+					daNote.kill();
+					notes.remove(daNote, true);
+					daNote.destroy();
+				}
+			});
+			for (i in 0...unspawnNotes.length) {
+				var daNote:Note = unspawnNotes[0];
+				if(daNote.strumTime + 800 >= Conductor.songPosition) {
+					break;
+				}
+
+				daNote.active = false;
+				daNote.visible = false;
+
+				daNote.kill();
+				unspawnNotes.splice(unspawnNotes.indexOf(daNote), 1);
+				daNote.destroy();
+			}
+
+			FlxG.sound.music.time = Conductor.songPosition;
+			FlxG.sound.music.play();
+
+			vocals.time = Conductor.songPosition;
+			vocals.play();
+
+			lowhpmusic.time = Conductor.songPosition;
+			lowhpmusic.play();
+		}
+		if(FlxG.keys.justPressed.L)
+		{
+			FlxG.sound.music.pause();
+			vocals.pause();
+			lowhpmusic.pause();
+			godmodecheat = true;
+			Conductor.songPosition = 19000;
+			notes.forEachAlive(function(daNote:Note)
+			{
+				if(daNote.strumTime + 800 < Conductor.songPosition) {
+					daNote.active = false;
+					daNote.visible = false;
+
+					daNote.kill();
+					notes.remove(daNote, true);
+					daNote.destroy();
+				}
+			});
+			for (i in 0...unspawnNotes.length) {
+				var daNote:Note = unspawnNotes[0];
+				if(daNote.strumTime + 800 >= Conductor.songPosition) {
+					break;
+				}
+
+				daNote.active = false;
+				daNote.visible = false;
+
+				daNote.kill();
+				unspawnNotes.splice(unspawnNotes.indexOf(daNote), 1);
+				daNote.destroy();
+			}
+
+			FlxG.sound.music.time = Conductor.songPosition;
+			FlxG.sound.music.play();
+
+			vocals.time = Conductor.songPosition;
+			vocals.play();
+
+			lowhpmusic.time = Conductor.songPosition;
+			lowhpmusic.play();
+		} */
 
 		if (executeModchart && lua != null && songStarted)
 		{
@@ -2871,25 +2980,13 @@ class PlayState extends MusicBeatState
 				FlxTransitionableState.skipNextTransOut = true;
 				FlxG.switchState(new SalvatiaEndingState());
 			}
-			else if (SONG.song.toLowerCase() == '81.281.1.192')
-			{
-				Application.current.window.alert("Connection terminated. I'm sorry to interrupt you, Elizabeth, if you still even remember that name, But I'm afraid you've been misinformed. \n
-				You are not here to receive a gift, nor have you been called here by the individual you assume, although, you have indeed been called. You have all been called here, into a labyrinth of sounds and smells, misdirection and misfortune. \n
-				A labyrinth with no exit, a maze with no prize. You don't even realize that you are trapped. Your lust for blood has driven you in endless circles, chasing the cries of children in some unseen chamber, always seeming so near, yet somehow out of reach, but you will never find them. \n
-				None of you will. This is where your story ends. And to you, my brave volunteer, who somehow found this job listing not intended for you, although there was a way out planned for you, I have a feeling that's not what you want. \n
-				I have a feeling that you are right where you want to be. I am remaining as well. I am nearby. This place will not be remembered, and the memory of everything that started this can finally begin to fade away. As the agony of every tragedy should. \n
-				And to you monsters trapped in the corridors, be still and give up your spirits. They don't belong to you. For most of you, I believe there is peace and perhaps more waiting for you after the smoke clears. \n
-				Although, for one of you, the darkest pit of Hell has opened to swallow you whole, so don't keep the devil waiting, old friend. My daughter, if you can hear me, I knew you would return as well. It's in your nature to protect the innocent. \n
-				I'm sorry that on that day, the day you were shut out and left to die, no one was there to lift you up into their arms the way you lifted others into yours, and then, what became of you. I should have known you wouldn't be content to disappear, not my daughter. \n
-				I couldn't save you then, so let me save you now. It's time to rest - for you, and for those you have carried in your arms. This ends for all of us.", 'Interpreter Miscommunication [1192.248]');
-				Sys.exit(0); // lmao
-			}
 			else
 			{
-				#if windows
-				DiscordClient.changePresence("Chart Editor", null, null, true);
-				#end
-				FlxG.switchState(new ChartingState());
+				SalvatiaEndingState.ending = 'cheater';
+				FlxG.save.data.cheater = true;
+				FlxTransitionableState.skipNextTransIn = true;
+				FlxTransitionableState.skipNextTransOut = true;
+				FlxG.switchState(new SalvatiaEndingState());
 				if (lua != null)
 				{
 					Lua.close(lua);
@@ -3786,6 +3883,46 @@ class PlayState extends MusicBeatState
 		#if debug
 		if (FlxG.keys.justPressed.ONE)
 			endSong();
+	/*	{
+			FlxG.sound.music.pause();
+			vocals.pause();
+			lowhpmusic.pause();
+			godmodecheat = true;
+			Conductor.songPosition = FlxG.sound.music.length - 20000;
+			notes.forEachAlive(function(daNote:Note)
+			{
+				if(daNote.strumTime + 800 < Conductor.songPosition) {
+					daNote.active = false;
+					daNote.visible = false;
+
+					daNote.kill();
+					notes.remove(daNote, true);
+					daNote.destroy();
+				}
+			});
+			for (i in 0...unspawnNotes.length) {
+				var daNote:Note = unspawnNotes[0];
+				if(daNote.strumTime + 800 >= Conductor.songPosition) {
+					break;
+				}
+
+				daNote.active = false;
+				daNote.visible = false;
+
+				daNote.kill();
+				unspawnNotes.splice(unspawnNotes.indexOf(daNote), 1);
+				daNote.destroy();
+			}
+
+			FlxG.sound.music.time = Conductor.songPosition;
+			FlxG.sound.music.play();
+
+			vocals.time = Conductor.songPosition;
+			vocals.play();
+
+			lowhpmusic.time = Conductor.songPosition;
+			lowhpmusic.play();
+		} */
 		#end
 	}
 
@@ -3921,6 +4058,13 @@ class PlayState extends MusicBeatState
 					{
 						SalvatiaEndingState.ending = 'good';
 					}
+					FlxTransitionableState.skipNextTransIn = true;
+					FlxTransitionableState.skipNextTransOut = true;
+					FlxG.switchState(new SalvatiaEndingState());
+				}
+				else if (SONG.song.toLowerCase() == 'cornholy')
+				{
+					SalvatiaEndingState.ending = 'stuck';
 					FlxTransitionableState.skipNextTransIn = true;
 					FlxTransitionableState.skipNextTransOut = true;
 					FlxG.switchState(new SalvatiaEndingState());
@@ -5429,7 +5573,7 @@ class PlayState extends MusicBeatState
 			camHUD.zoom += 0.015;
 		}
 		super.stepHit();
-		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
+		if (FlxG.sound.music.time > Conductor.songPosition + 20 && !songCleared || FlxG.sound.music.time < Conductor.songPosition - 20 && !songCleared)
 		{
 			resyncVocals();
 			resyncLowhpmusic();
@@ -5534,6 +5678,15 @@ class PlayState extends MusicBeatState
 
 		if (curSong == 'Cornholy')
 			{
+				var bambifunnymoments:Array<Int> = [128, 320, 512, 560, 736, 832]; // cornholy vine sound moments
+				for (funny in 0...bambifunnymoments.length)
+				{
+					if (curStep == bambifunnymoments[funny]) // look guys im optimizing!
+					{
+						bambihudcornholy.alpha = 1;
+						FlxTween.tween(bambihudcornholy, {alpha: 0}, 0.75, {ease:FlxEase.cubeOut});
+					}
+				}
 				switch (curStep)
 				{
 					case 128:
@@ -5592,10 +5745,20 @@ class PlayState extends MusicBeatState
 						gfSpeed = 1;
 						FlxG.camera.zoom += 0.015;
 						camHUD.zoom += 0.03;
-					case 1120:
-						BamberVariables.awesomepart = true;
-					case 1248:
-						BamberVariables.awesomepart = false;
+					case 1004:
+						playerStrums.forEach(function(note:FlxSprite){
+							FlxTween.tween(note, {y: FlxG.save.data.downscroll ? 800 : -100}, 1, {ease:FlxEase.cubeIn, onComplete:function(getouttahere:FlxTween)note.alpha = 0});
+						});
+						cpuStrums.forEach(function(note:FlxSprite){
+							FlxTween.tween(note, {y: FlxG.save.data.downscroll ? 800 : -100}, 1, {ease:FlxEase.cubeIn, onComplete:function(getouttahere:FlxTween)note.alpha = 0});
+						});
+						FlxTween.tween(healthBarBG, {y: FlxG.save.data.downscroll ? healthBarBG.y - 200 : healthBarBG.y + 200}, 1, {ease:FlxEase.cubeIn});
+						FlxTween.tween(healthBar, {y: FlxG.save.data.downscroll ? healthBar.y - 200 : healthBarBG.y + 200}, 1, {ease:FlxEase.cubeIn});
+						FlxTween.tween(iconP1, {y: FlxG.save.data.downscroll ? iconP1.y - 200 : iconP1.y + 200}, 1, {ease:FlxEase.cubeIn});
+						FlxTween.tween(iconP2, {y: FlxG.save.data.downscroll ? iconP2.y - 200 : iconP2.y + 200}, 1, {ease:FlxEase.cubeIn});
+						FlxTween.tween(kadeEngineWatermark, {x: kadeEngineWatermark.x - 350}, 1, {ease:FlxEase.cubeIn});
+						FlxTween.tween(creditsthing, {x: creditsthing.x - 350}, 1, {ease:FlxEase.cubeIn});
+						FlxTween.tween(scoreTxt, {y: FlxG.save.data.downscroll ? scoreTxt.y - 200 : scoreTxt.y + 200}, 1, {ease:FlxEase.cubeIn});
 				}
 			}
 		if (curSong == 'Cheating') // you dun fucked up
@@ -5696,6 +5859,44 @@ class PlayState extends MusicBeatState
 
 					case 36: 
 						salvationLightFlicker();
+						FlxG.sound.music.pause();
+						vocals.pause();
+						lowhpmusic.pause();
+						godmodecheat = true;
+						Conductor.songPosition = 93000;
+						notes.forEachAlive(function(daNote:Note)
+						{
+							if(daNote.strumTime + 800 < Conductor.songPosition) {
+								daNote.active = false;
+								daNote.visible = false;
+			
+								daNote.kill();
+								notes.remove(daNote, true);
+								daNote.destroy();
+							}
+						});
+						for (i in 0...unspawnNotes.length) {
+							var daNote:Note = unspawnNotes[0];
+							if(daNote.strumTime + 800 >= Conductor.songPosition) {
+								break;
+							}
+			
+							daNote.active = false;
+							daNote.visible = false;
+			
+							daNote.kill();
+							unspawnNotes.splice(unspawnNotes.indexOf(daNote), 1);
+							daNote.destroy();
+						}
+			
+						FlxG.sound.music.time = Conductor.songPosition;
+						FlxG.sound.music.play();
+			
+						vocals.time = Conductor.songPosition;
+						vocals.play();
+			
+						lowhpmusic.time = Conductor.songPosition;
+						lowhpmusic.play();
 
 					case 46: 
 						salvationLightFlicker();
@@ -5731,6 +5932,13 @@ class PlayState extends MusicBeatState
 						healthBar.createFilledBar(0xFF0CB500, 0xFF36A1BC); // yeah
 						healthBar.updateFilledBar();
 					case 1328:
+						health = 2;
+						godmodecheat = false;
+						songScore = 104960;
+						accuracy = 90.73;
+						totalNotesHit = 225;
+						totalPlayed = 248;
+						updateAccuracy();
 						blackOverlay.alpha = 0.6;
 						FlxTween.tween(blackOverlay, {alpha: 1}, 2, {ease: FlxEase.quartOut});
 					case 1360:

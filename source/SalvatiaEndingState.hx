@@ -18,7 +18,8 @@ using StringTools; // yes
 
 class SalvatiaEndingState extends FlxState
 {
-    public static var ending:String = 'cheater';
+//    public static var ending:String = 'cheater';
+    public static var ending:String = 'stuck';
     public var endingscene:FlxSprite;
     public var bf:Boyfriend; // for worst endings
     public var mami:FlxSprite;
@@ -55,22 +56,6 @@ class SalvatiaEndingState extends FlxState
                     dave.antialiasing = true;
                     bfxthing = 700;
                     bfything = 160;
-            /*  case 'ascended':
-                    eduardo = new Character(213, -13, 'edward');
-                    eduardo.playAnim('idle');
-                    eduardo.setGraphicSize(Std.int(eduardo.height * 0.25));
-                    mami = new FlxSprite(439, 48).loadGraphic(Paths.image('lookinleft', 'shared'));
-                    mami.setGraphicSize(Std.int(mami.height * 0.449));
-                    mami.antialiasing = true;
-                    new FlxTimer().start(1.287850, function(tmr:FlxTimer)
-                    {
-                        well();
-                        new FlxTimer().start(2.6, function(tmr:FlxTimer)
-                        {
-                            FlxG.sound.playMusic(Paths.music('freakyMenu'));
-                            LoadingState.loadAndSwitchState(new MainMenuState());
-                        }); 
-                    }); */ // dead eduardo meme
                 case 'headshot':
                     bfxthing = 700;
                     bfything = 160;
@@ -122,37 +107,23 @@ class SalvatiaEndingState extends FlxState
             bfxthing = 470;
             bfything = 200;
         }
-    /*  if (ending == 'skill issue')
-        {
-            mami = new FlxSprite(407, 38).loadGraphic(Paths.image('lookinleft', 'shared'));
-            mami.setGraphicSize(Std.int(mami.height * 0.47));
-            mami.antialiasing = true;
-            dave = new FlxSprite(278, 104).loadGraphic(Paths.image('awhen anime isnt real', 'shared'));
-            dave.setGraphicSize(Std.int(dave.height * 0.349));
-            dave.antialiasing = true;
-            bfxthing = 700;
-            bfything = 160;
-        }
-        if (ending == 'ascended')
-        {
-            eduardo = new Character(213, -13, 'edward');
-            eduardo.playAnim('idle');
-            mami = new FlxSprite(439, 48).loadGraphic(Paths.image('lookinleft', 'shared'));
-            mami.setGraphicSize(Std.int(mami.height * 0.449));
-            mami.antialiasing = true;
-            eduardo.setGraphicSize(Std.int(eduardo.height * 0.25));
-            new FlxTimer().start(1.287850, function(tmr:FlxTimer)
-            {
-                well();
-                new FlxTimer().start(2.6, function(tmr:FlxTimer)
-                {
-                    FlxG.sound.playMusic(Paths.music('freakyMenu'));
-                    LoadingState.loadAndSwitchState(new MainMenuState());
-                }); 
-            });
-        } */
         endingscene = new FlxSprite(0, 0);
-        endingscene.loadGraphic(Paths.image('dave/' + ending.toUpperCase() + ' ENDING!!!', 'shared'));
+        if (ending == 'stuck')
+        {
+            var funny:FlxText = new FlxText(0, 0, 0, "and then they just stood there", 24);
+            funny.font = Paths.font("comic.ttf");
+            add(funny);
+            funny.screenCenter(X);
+            funny.y = 620;
+            endingscene.frames = Paths.getSparrowAtlas('dave/stuck/the funny', 'shared');
+            endingscene.animation.addByPrefix('funny', 'funny', 40, true, false, false);
+            endingscene.animation.play('funny');
+            endingscene.antialiasing = true;
+            endingscene.setGraphicSize(Std.int(endingscene.width * 1.3));
+            endingscene.screenCenter();
+        }
+        else
+            endingscene.loadGraphic(Paths.image('dave/' + ending.toUpperCase() + ' ENDING!!!', 'shared'));
         add(endingscene);
 
     //  add(dave);
@@ -198,7 +169,7 @@ class SalvatiaEndingState extends FlxState
                     case 'amongus':
                         FlxG.sound.music.stop();
                         TitleState.initialized = false;
-                        LoadingState.loadAndSwitchState(new VideoState("assets/videos/john roblos.webm", new TitleState()));
+                        LoadingState.loadAndSwitchState(new VideoState("assets/videos/john roblos.webm", new BetterTitleState()));
                     default:
                         FlxG.sound.playMusic(Paths.music('freakyMenu'));
                         FlxG.switchState(new MainMenuState());
@@ -215,7 +186,7 @@ class SalvatiaEndingState extends FlxState
                     case 'amongus':
                         FlxG.sound.music.stop();
                         TitleState.initialized = false;
-                        LoadingState.loadAndSwitchState(new VideoState("assets/videos/john roblos.webm", new TitleState()));
+                        LoadingState.loadAndSwitchState(new VideoState("assets/videos/john roblos.webm", new BetterTitleState()));
                     default:
                         FlxG.sound.playMusic(Paths.music('freakyMenu'));
                         FlxG.switchState(new MainMenuState());

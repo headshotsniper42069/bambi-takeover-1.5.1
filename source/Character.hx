@@ -260,23 +260,6 @@ class Character extends FlxSprite
 	
 				playAnim('idle');
 
-			case 'mami-holy':
-				tex = Paths.getSparrowAtlas('characters/Dave appears as a light skinned man with a blue shirt, blue pants, and short brown hair','shared');
-				frames = tex;
-				animation.addByPrefix('idle', 'IDLE', 24);
-				animation.addByPrefix('singUP', 'UP', 24);
-				animation.addByPrefix('singRIGHT', 'RIGHT', 24);
-				animation.addByPrefix('singDOWN', 'DOWN', 24);
-				animation.addByPrefix('singLEFT', 'LEFT', 24);
-
-				addOffset('idle', -69, 126); //24
-				addOffset("singUP", 150, 145); //-5
-				addOffset("singRIGHT", 40, 115); //-35
-				addOffset("singLEFT", -10, 115); //-35
-				addOffset("singDOWN", 50, 85); //-65
-	
-				playAnim('idle');	
-
 			case 'mami-tetris':
 				tex = Paths.getSparrowAtlas('characters/Mami Tetris','shared');
 				frames = tex;

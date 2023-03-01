@@ -1,5 +1,6 @@
 package;
 
+import lime.graphics.Image;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.util.FlxTimer;
 import flixel.FlxG;
@@ -26,6 +27,12 @@ class SpoilerState extends MusicBeatState
 
 	override function create()
 	{
+		FlxG.sound.music.stop();
+		FlxG.sound.playMusic(Paths.music('freakyMenu', 'preload'));
+		var funnyicon:Image = new Image();
+		funnyicon = Image.fromFile(Sys.getCwd() + "iconOG.png");
+		lime.app.Application.current.window.setIcon(funnyicon);
+		lime.app.Application.current.window.title = "Friday Night Funkin' Vs. Mami [FULL WEEK]";
 		var tex = Paths.getSparrowAtlas('spoiler','shared');
 		bg = new FlxSprite(-200, -100);
 		bg.frames = tex;
